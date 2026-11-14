@@ -9,10 +9,8 @@
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
     <style>
-        /* Puranakathaigal Theme Colors */
         :root {
             --primary: #B3181E;
-            --primary-light: #d63031;
             --primary-dark: #7E0F13;
             --bg-color: #FFF8EF;
             --card-bg: #FFFFFF;
@@ -27,40 +25,45 @@
         h1, h2, h3 { font-family: 'Baloo Thambi 2', sans-serif; margin: 0; }
 
         /* Header */
-        header { background: var(--primary); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
-        .header-left { display: flex; align-items: center; gap: 15px; }
-        .menu-btn { font-size: 1.5rem; cursor: pointer; }
+        header { background: var(--primary); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .header-left img { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid white; object-fit: cover;}
         .brand-text { font-size: 1.3rem; font-weight: 700; font-family: 'Baloo Thambi 2', sans-serif; }
-        .bell-icon { font-size: 1.3rem; position: relative; cursor: pointer;}
-        .bell-dot { position: absolute; top: -2px; right: -2px; background: #f1c40f; width: 8px; height: 8px; border-radius: 50%; }
+        .bell-icon { font-size: 1.4rem; position: relative; cursor: pointer;}
+        .bell-dot { position: absolute; top: 0px; right: 0px; background: #f1c40f; color: #000; width: 14px; height: 14px; border-radius: 50%; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;}
 
-        /* App Container & Sections */
+        /* Sections */
         .app-container { max-width: 600px; margin: 0 auto; min-height: 100vh; background: var(--bg-color); }
         .section { display: none; padding: 15px; animation: fadeIn 0.3s ease; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Search Bar */
+        /* Search & Filter Blocks */
         .search-container { background: var(--card-bg); padding: 10px 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--card-border); margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
         .search-container input { border: none; outline: none; width: 100%; font-size: 0.95rem; font-family: 'Hind Madurai', sans-serif; background: transparent;}
         .search-container svg { width: 20px; height: 20px; fill: var(--text-muted); }
 
-        /* Filter Blocks (Live & Recorded) */
         .filter-blocks { display: flex; gap: 15px; margin-bottom: 25px; }
-        .block-card { flex: 1; padding: 20px 15px; border-radius: 12px; color: white; position: relative; overflow: hidden; cursor: pointer;}
+        .block-card { flex: 1; padding: 20px 15px; border-radius: 12px; color: white; position: relative; overflow: hidden;}
         .block-live { background: linear-gradient(135deg, #7E0F13, #B3181E); }
         .block-recorded { background: linear-gradient(135deg, #27ae60, #2ecc71); }
         .block-card h3 { font-size: 1.1rem; margin-bottom: 5px; z-index: 2; position: relative;}
         .block-card .arrow { font-size: 1.2rem; font-weight: bold; margin-top: 15px; display: block; }
         .block-icon { position: absolute; right: -10px; bottom: -10px; opacity: 0.2; width: 80px; height: 80px; }
 
-        /* Categories (Horizontal Scroll) */
+        /* Social Links */
+        .social-row { display: flex; gap: 10px; margin-top: 15px; margin-bottom: 20px;}
+        .social-row a { flex: 1; text-align: center; padding: 10px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 0.9rem;}
+        .btn-yt { background: #ffebee; color: #c0392b; border: 1px solid #c0392b;}
+        .btn-ig { background: #fdf2e9; color: #d35400; border: 1px solid #d35400;}
+
+        /* Categories */
         .category-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: none; }
         .category-scroll::-webkit-scrollbar { display: none; }
         .cat-pill { padding: 8px 16px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; cursor: pointer; transition: 0.2s;}
         .cat-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* Course List (Store) */
+        /* Course List */
         .course-card { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--card-border); }
         .course-img { width: 120px; height: 90px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #FBF1DC;}
         .course-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between;}
@@ -72,31 +75,35 @@
         .price-old { font-size: 0.8rem; color: var(--text-muted); text-decoration: line-through; }
         .price-off { font-size: 0.8rem; color: var(--primary); font-weight: 700; }
 
-        /* Profile Tabs */
+        /* Profile & Admin */
         .profile-header { text-align: center; padding: 20px 0; border-bottom: 1px solid var(--card-border); background: var(--card-bg); margin: -15px -15px 15px -15px;}
-        .profile-avatar { width: 70px; height: 70px; background: var(--card-border); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--text-muted); margin-bottom: 10px;}
         .profile-tabs { display: flex; border-bottom: 1px solid var(--card-border); overflow-x: auto; background: var(--card-bg); margin: 0 -15px 20px -15px; scrollbar-width: none;}
         .profile-tabs::-webkit-scrollbar { display: none; }
         .p-tab { padding: 12px 20px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; cursor: pointer; text-transform: uppercase;}
         .p-tab.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
-
-        /* Admin / Owner Dashboard */
         .admin-panel { background: #fff; padding: 20px; border-radius: 12px; border: 2px dashed var(--primary); margin-top: 20px; display: none;}
-        .input-box { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--card-border); border-radius: 8px; font-family: 'Hind Madurai', sans-serif; font-size: 0.95rem; outline: none; background: #fafafa;}
-        .input-box:focus { border-color: var(--primary); background: #fff;}
-        .btn { display: block; width: 100%; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 1rem; background: var(--primary); color: white; border: none; cursor: pointer; font-family: 'Baloo Thambi 2', sans-serif;}
-        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); margin-top: 10px;}
+        .note-card { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--primary); border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 0.9rem;}
 
-        /* Bottom Navigation */
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 600px; left: 50%; transform: translateX(-50%); background: var(--white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid var(--card-border); z-index: 100; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);}
+        /* Form & Modals */
+        .input-box { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--card-border); border-radius: 8px; font-family: 'Hind Madurai', sans-serif; font-size: 0.95rem; outline: none;}
+        .input-box:focus { border-color: var(--primary); }
+        .btn { display: block; width: 100%; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 1rem; background: var(--primary); color: white; border: none; cursor: pointer; font-family: 'Baloo Thambi 2', sans-serif; text-align: center;}
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); margin-top: 10px;}
+        
+        /* Modals */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); z-index: 200; align-items: flex-end; justify-content: center; }
+        .modal-box { background: var(--bg-color); width: 100%; max-width: 600px; padding: 25px; border-radius: 20px 20px 0 0; position: relative; max-height: 90vh; overflow-y: auto;}
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); font-weight: bold;}
+        .qr-box { border: 2px dashed var(--primary); border-radius: 12px; padding: 15px; text-align: center; margin: 15px 0; background: white;}
+        .qr-box img { max-width: 220px; width: 100%; border-radius: 8px; }
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 600px; left: 50%; transform: translateX(-50%); background: var(--white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid var(--card-border); z-index: 100;}
         .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); font-size: 0.75rem; font-weight: 600; cursor: pointer; width: 25%;}
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; margin-bottom: 4px; }
         .nav-item.active { color: var(--primary); }
 
-        /* Login Modal */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(36, 21, 18, 0.85); z-index: 200; align-items: center; justify-content: center; }
-        .modal-box { background: var(--bg-color); width: 90%; max-width: 350px; padding: 25px; border-radius: 12px; position: relative; text-align: center; border: 2px solid var(--primary);}
-        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); font-weight: bold;}
+        #toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--text-dark); color: white; padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; z-index: 300; display: none; white-space: nowrap;}
     </style>
 </head>
 <body>
@@ -106,117 +113,97 @@
     <!-- Header -->
     <header>
         <div class="header-left">
-            <div class="menu-btn">≡</div>
+            <img src="icon-192.png" alt="Logo">
             <span class="brand-text">M2 Stitches</span>
         </div>
-        <div class="bell-icon">
-            🔔<span class="bell-dot"></span>
+        <div class="bell-icon" onclick="openNotifications()">
+            🔔<span class="bell-dot" id="bellDot" style="display:none;">0</span>
         </div>
     </header>
 
     <!-- HOME TAB -->
     <main id="home" class="section active">
-        <!-- Search -->
         <div class="search-container">
             <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             <input type="text" placeholder="Search for courses...">
         </div>
 
-        <!-- Filter Blocks -->
         <div class="filter-blocks">
             <div class="block-card block-live">
                 <h3>Live<br>Schedule</h3>
                 <span class="arrow">→</span>
-                <svg class="block-icon" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
             </div>
-            <div class="block-card block-recorded">
+            <div class="block-card block-recorded" onclick="document.getElementById('nav-store').click()">
                 <h3>Recorded<br>Courses</h3>
                 <span class="arrow">→</span>
-                <svg class="block-icon" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
             </div>
         </div>
 
-        <!-- Testimonials Dummy -->
-        <h3 style="margin-bottom: 10px; font-size: 1.1rem; color: var(--primary-dark);">What our students have to say</h3>
-        <div style="background: #eafaf1; padding: 15px; border-radius: 10px; border-left: 4px solid var(--success); font-size: 0.9rem; color: #2c3e50;">
-            "Beginner friendlya slowa nalla puriyara mathiri solli tharanga. Good teaching methods, tips. Thank you." <br>
+        <h3 style="margin-bottom: 10px; font-size: 1.1rem; color: var(--primary-dark);">What our students say</h3>
+        <div style="background: #eafaf1; padding: 15px; border-radius: 10px; border-left: 4px solid var(--success); font-size: 0.9rem;">
+            "Beginner friendlya slowa nalla puriyara mathiri solli tharanga. Good teaching methods. Thank you." <br>
             <strong style="margin-top: 10px; display: block; color: var(--primary-dark);">- M2 Student</strong>
+        </div>
+
+        <div class="social-row">
+            <a href="https://www.youtube.com/@M2stiches" target="_blank" class="btn-yt">📺 YouTube</a>
+            <a href="https://www.instagram.com/m2__stiches__" target="_blank" class="btn-ig">📸 Instagram</a>
         </div>
     </main>
 
     <!-- STORE TAB -->
     <main id="store" class="section">
         <!-- Categories -->
-        <div class="category-scroll">
-            <div class="cat-pill active">All Courses</div>
-            <div class="cat-pill">Blouse (3)</div>
-            <div class="cat-pill">Tailoring (2)</div>
-            <div class="cat-pill">Chudithar Set (1)</div>
+        <div class="category-scroll" id="catContainer">
+            <div class="cat-pill active" onclick="filterCourses('All')">All Courses</div>
+            <div class="cat-pill" onclick="filterCourses('Blouse')">Blouse</div>
+            <div class="cat-pill" onclick="filterCourses('Tailoring')">Tailoring</div>
+            <div class="cat-pill" onclick="filterCourses('Chudithar')">Chudithar</div>
         </div>
 
-        <!-- Dynamic Course List -->
         <div id="course-list">
-            <!-- Courses will be injected here -->
+            <p style="text-align:center; color:var(--text-muted);">Loading courses...</p>
         </div>
     </main>
 
     <!-- CHATS TAB -->
     <main id="chats" class="section">
         <h2 style="text-align: center; margin-top: 50px; color: var(--primary-dark);">Community Chats</h2>
-        <p style="text-align: center; color: var(--text-muted); margin-top: 10px;">Please login or purchase a course to join the study group.</p>
-        <button class="btn" style="width: 200px; margin: 20px auto;" onclick="openLogin()">Login Now</button>
+        <p style="text-align: center; color: var(--text-muted); margin-top: 10px;">Purchase a course to join the study group.</p>
+        <button class="btn" style="width: 200px; margin: 20px auto;" onclick="document.getElementById('nav-store').click()">Go to Store</button>
     </main>
 
-    <!-- PROFILE / OWNER TAB -->
+    <!-- PROFILE / ADMIN TAB -->
     <main id="profile" class="section">
         <div class="profile-header">
-            <div class="profile-avatar">👤</div>
-            <h3 id="profile-name">Guest User</h3>
-            <p id="profile-phone" style="font-size: 0.85rem; color: var(--text-muted);">Please login to view details</p>
+            <h3 id="profile-name">Student Account</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" onclick="showAdminLogin()">Tap here for Owner Login</p>
         </div>
 
-        <!-- Profile Sub Tabs -->
         <div class="profile-tabs">
-            <div class="p-tab active" onclick="switchProfileTab('p-info', this)">Info</div>
-            <div class="p-tab" onclick="switchProfileTab('p-courses', this)">Courses</div>
-            <div class="p-tab" onclick="switchProfileTab('p-payments', this)">Payments</div>
-            <div class="p-tab" id="ownerTabBtn" style="display:none;" onclick="switchProfileTab('p-admin', this)">⭐ Admin</div>
+            <div class="p-tab active" onclick="switchProfileTab('p-courses', this)">My Courses</div>
+            <div class="p-tab" id="ownerTabBtn" style="display:none;" onclick="switchProfileTab('p-admin', this)">⭐ Admin panel</div>
         </div>
 
-        <!-- Sub Tab Contents -->
-        <div id="p-info" class="p-content">
-            <p style="color: var(--text-muted);">Basic Information will appear here after login.</p>
-            <button class="btn btn-outline" onclick="openLogin()" id="profileLoginBtn">Login / Register</button>
-            
-            <!-- Hidden Admin Access Trigger -->
-            <p style="text-align: center; margin-top: 40px; font-size: 0.7rem; color: #ccc;" onclick="showAdminLogin()">Owner Login</p>
-        </div>
-
-        <div id="p-courses" class="p-content" style="display:none; text-align: center; padding-top: 40px;">
-            <img src="https://cdn-icons-png.flaticon.com/512/4060/4060233.png" style="width: 100px; opacity: 0.5; margin-bottom: 15px;">
-            <h3 style="color: var(--text-dark);">No Courses Purchased</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Buy courses and start learning!</p>
-            <button class="btn btn-outline" style="width: 150px; margin: 20px auto;" onclick="document.getElementById('nav-store').click()">Go to Store</button>
-        </div>
-
-        <div id="p-payments" class="p-content" style="display:none; text-align: center; padding-top: 40px;">
-            <h3 style="color: var(--text-dark);">No Transactions</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">You don't have any transactions to show.</p>
+        <div id="p-courses" class="p-content" style="text-align: center; padding-top: 20px;">
+            <p style="color: var(--text-muted); font-size: 0.9rem;">You don't have any purchased courses yet.</p>
         </div>
 
         <!-- OWNER / ADMIN PANEL -->
         <div id="p-admin" class="p-content" style="display:none;">
-            <div class="admin-panel" id="adminPanelDiv" style="display: block;">
-                <h3 style="color: var(--primary); margin-bottom: 20px;">Owner Dashboard (Add Course)</h3>
-                
-                <input type="text" id="adminCName" class="input-box" placeholder="Course Title (ex: Collar Blouse Class)">
-                <input type="text" id="adminCImg" class="input-box" placeholder="Image Link (Paste URL here)">
+            <div class="admin-panel" style="display: block;">
+                <h3 style="color: var(--primary); margin-bottom: 20px;">Add New Course</h3>
+                <input type="text" id="adminCName" class="input-box" placeholder="Course Title (ex: Blouse Class)">
+                <input type="text" id="adminCat" class="input-box" placeholder="Category (Blouse / Tailoring / Chudithar)">
                 <input type="number" id="adminCPrice" class="input-box" placeholder="Selling Price (₹)">
-                <input type="number" id="adminCOldPrice" class="input-box" placeholder="Original Price (₹) - Optional">
-                <input type="text" id="adminCTags" class="input-box" placeholder="Tags (ex: FREE CONTENT, VIDEOS)">
+                <input type="number" id="adminCOldPrice" class="input-box" placeholder="Original Price (₹)">
                 
-                <button class="btn" onclick="addNewCourse()">Publish Course to Store</button>
-                <button class="btn btn-outline" onclick="logoutAdmin()">Logout Admin</button>
+                <button class="btn" onclick="addNewCourse()">Publish Course</button>
+
+                <h3 style="color: var(--primary); margin: 30px 0 15px;">Pending Payments (UTRs)</h3>
+                <div id="adminUtrList"><p style="font-size:0.85rem; color:var(--text-muted);">No pending requests.</p></div>
+
+                <button class="btn btn-outline" style="margin-top:20px;" onclick="logoutAdmin()">Logout Admin</button>
             </div>
         </div>
     </main>
@@ -224,103 +211,90 @@
     <!-- BOTTOM NAV -->
     <nav class="bottom-nav">
         <div class="nav-item active" id="nav-home" onclick="switchTab('home', this)">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            Home
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home
         </div>
         <div class="nav-item" id="nav-store" onclick="switchTab('store', this)">
-            <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm2-4h12v2H6zm14 8H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-6 9l-4-2.25v4.5L14 19z"/></svg>
-            Store
+            <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm2-4h12v2H6zm14 8H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-6 9l-4-2.25v4.5L14 19z"/></svg>Store
         </div>
         <div class="nav-item" onclick="switchTab('chats', this)">
-            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
-            Chats
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>Chats
         </div>
         <div class="nav-item" onclick="switchTab('profile', this)">
-            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            Profile
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Profile
         </div>
     </nav>
 
-    <!-- LOGIN MODAL (Student) -->
-    <div class="modal" id="loginModal">
+    <!-- QR PAYMENT MODAL -->
+    <div class="modal" id="qrModal">
         <div class="modal-box">
-            <div class="close-btn" onclick="closeLogin()">×</div>
-            <h2 style="color: var(--primary); margin-bottom: 5px;">Login</h2>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">வகுப்புகளை வாங்க உள்நுழையவும்.</p>
+            <div class="close-btn" onclick="closeModal('qrModal')">×</div>
+            <h2 style="color: var(--primary); margin-bottom: 5px;" id="qrTitle">Pay ₹0</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Scan QR with GPay / PhonePe / Paytm.</p>
             
-            <input type="tel" id="mobileNumber" class="input-box" placeholder="Mobile Number">
-            <div id="otpGroup" style="display:none;">
-                <input type="number" id="otpCode" class="input-box" placeholder="Enter OTP (Any 4 digits)">
+            <div class="qr-box">
+                <img src="qr.png" alt="Payment QR Code">
             </div>
-            <button class="btn" id="loginActionBtn" onclick="requestOTP()">Get OTP</button>
+            
+            <input type="text" id="utrInput" class="input-box" placeholder="Enter 12-digit UTR Number" inputmode="numeric">
+            <button class="btn" onclick="submitUTR()">Submit Payment</button>
         </div>
     </div>
 
-    <!-- OWNER LOGIN MODAL (Hidden) -->
-    <div class="modal" id="adminLoginModal">
+    <!-- NOTIFICATIONS MODAL -->
+    <div class="modal" id="noteModal">
         <div class="modal-box">
-            <div class="close-btn" onclick="document.getElementById('adminLoginModal').style.display='none'">×</div>
+            <div class="close-btn" onclick="closeModal('noteModal')">×</div>
+            <h2 style="color: var(--primary); margin-bottom: 15px;">Notifications</h2>
+            <div id="noteList">
+                <div class="note-card">Welcome to M2 Stitches! Learn professional tailoring easily.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-box" style="border-radius: 12px; margin: auto; max-width:320px;">
+            <div class="close-btn" style="top:5px; right:10px;" onclick="closeModal('adminLoginModal')">×</div>
             <h2 style="color: var(--primary); margin-bottom: 15px;">Owner Login</h2>
-            <input type="password" id="adminPassword" class="input-box" placeholder="Enter Owner Password">
-            <button class="btn" onclick="verifyAdmin()">Unlock Dashboard</button>
+            <input type="password" id="adminPassword" class="input-box" placeholder="Enter Password">
+            <button class="btn" onclick="verifyAdmin()">Unlock Admin</button>
             <p style="font-size:0.75rem; color:var(--text-muted); margin-top:10px;">Hint: admin123</p>
         </div>
     </div>
 
 </div>
+<div id="toast">Message</div>
 
 <script>
-    // Local Data Storage (Since we are using Local Storage to simulate your admin control instantly)
-    let defaultCourses = [
-        {
-            title: "Coller blouse class",
-            img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop",
-            price: 299, oldPrice: 1019, tags: ["FREE CONTENT", "VIDEOS"]
-        },
-        {
-            title: "Boat neck and deep neck blouse class",
-            img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=800&auto=format&fit=crop",
-            price: 299, oldPrice: 1019, tags: ["VIDEOS", "FILES"]
-        }
-    ];
+    // Supabase config
+    const SB_URL = "https://ykwfhtsphqyrscojclhk.supabase.co";
+    const SB_KEY = "sb_publishable_4w_bwrUQOBY60Zauc2pDiw_ommX-WQD";
+    const sb = supabase.createClient(SB_URL, SB_KEY);
 
-    // Load courses from LocalStorage or use Default
-    let myCourses = JSON.parse(localStorage.getItem('m2_courses')) || defaultCourses;
-    let isLoggedIn = false;
     let isAdmin = localStorage.getItem('m2_admin') === 'true';
+    let currentPayCourseId = null;
+    let allCourses = [];
 
-    function init() {
-        renderCourses();
+    // Initialize App
+    async function init() {
         if(isAdmin) {
             document.getElementById('ownerTabBtn').style.display = 'block';
+            document.getElementById('profile-name').innerText = "M2 Stitches Owner";
+            loadPendingRequests();
         }
+        await fetchCourses();
+        checkNotifications();
     }
 
-    // Render Courses in Store
-    function renderCourses() {
-        let html = '';
-        myCourses.forEach((c, index) => {
-            let offPercent = c.oldPrice ? Math.round(((c.oldPrice - c.price) / c.oldPrice) * 100) : 0;
-            let tagsHtml = c.tags ? c.tags.map(t => `<span class="c-tag">${t}</span>`).join('') : '<span class="c-tag">NEW</span>';
-            
-            html += `
-                <div class="course-card" onclick="checkLoginAndBuy('${c.title}')">
-                    <img src="${c.img || 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop'}" class="course-img" alt="Course">
-                    <div class="course-info">
-                        <div class="course-tags">${tagsHtml}</div>
-                        <h3 class="course-title">${c.title}</h3>
-                        <div class="course-price-row">
-                            <span class="price-new">₹ ${c.price}</span>
-                            ${c.oldPrice ? `<span class="price-old">₹ ${c.oldPrice}</span> <span class="price-off">${offPercent}% OFF</span>` : ''}
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-        document.getElementById('course-list').innerHTML = html;
+    // Toast Message
+    function showToast(msg) {
+        let t = document.getElementById('toast');
+        t.innerText = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 3000);
     }
 
-    // Main Tab Switching
+    // Navigation Logic
     function switchTab(tabId, element) {
         document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
@@ -329,7 +303,6 @@
         window.scrollTo(0,0);
     }
 
-    // Profile Sub Tab Switching
     function switchProfileTab(tabId, element) {
         document.querySelectorAll('.p-content').forEach(sec => sec.style.display = 'none');
         document.getElementById(tabId).style.display = 'block';
@@ -337,54 +310,108 @@
         element.classList.add('active');
     }
 
-    // Buy Logic
-    function checkLoginAndBuy(itemName) {
-        if (!isLoggedIn && !isAdmin) {
-            openLogin();
+    // Modal Logic
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    // Fetch Courses from Supabase (or fallback)
+    async function fetchCourses() {
+        const { data, error } = await sb.from("courses").select("*").order("id", { ascending: false });
+        if(data && data.length > 0) {
+            allCourses = data;
         } else {
-            alert("Redirecting to Payment Gateway for: " + itemName + "\n(This feature will be integrated next)");
+            // Dummy fallback if Supabase is empty
+            allCourses = [
+                { id: 1, title: "A-Z Blouse Cutting & Stitching", category: "Blouse", price: 999, old_price: 2000, tags: ["VIDEOS"] },
+                { id: 2, title: "Chudithar Masterclass", category: "Chudithar", price: 799, old_price: 1500, tags: ["FREE CONTENT"] }
+            ];
         }
+        filterCourses('All'); // Initial render
     }
 
-    // Student Login System
-    function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
-    function closeLogin() { 
-        document.getElementById('loginModal').style.display = 'none'; 
-        document.getElementById('otpGroup').style.display = 'none';
-        document.getElementById('loginActionBtn').innerText = 'Get OTP';
-        document.getElementById('loginActionBtn').setAttribute('onclick', 'requestOTP()');
-    }
-    function requestOTP() {
-        let mob = document.getElementById('mobileNumber').value;
-        if(mob.length >= 10) {
-            document.getElementById('loginActionBtn').innerText = 'Sending OTP...';
-            setTimeout(() => {
-                document.getElementById('otpGroup').style.display = 'block';
-                document.getElementById('loginActionBtn').innerText = 'Verify & Login';
-                document.getElementById('loginActionBtn').setAttribute('onclick', 'verifyOTP()');
-            }, 600);
+    // Render & Filter Courses
+    function filterCourses(cat) {
+        // Update Pills UI
+        document.querySelectorAll('.cat-pill').forEach(p => {
+            if(p.innerText.includes(cat)) p.classList.add('active');
+            else p.classList.remove('active');
+        });
+
+        let filtered = cat === 'All' ? allCourses : allCourses.filter(c => c.category && c.category.toLowerCase().includes(cat.toLowerCase()));
+        
+        let html = '';
+        if(filtered.length === 0) {
+            html = '<p style="text-align:center; color:#8a7268; margin-top:20px;">No courses found in this category.</p>';
         } else {
-            alert("சரியான மொபைல் எண்ணை உள்ளிடவும்.");
+            filtered.forEach(c => {
+                let offPercent = c.old_price ? Math.round(((c.old_price - c.price) / c.old_price) * 100) : 0;
+                html += `
+                    <div class="course-card">
+                        <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop" class="course-img">
+                        <div class="course-info">
+                            <h3 class="course-title">${c.title}</h3>
+                            <div class="course-price-row">
+                                <span class="price-new">₹ ${c.price}</span>
+                                ${c.old_price ? `<span class="price-old">₹ ${c.old_price}</span> <span class="price-off">${offPercent}% OFF</span>` : ''}
+                            </div>
+                            <button class="btn" style="padding: 6px; font-size:0.9rem;" onclick="openBuyModal(${c.id}, '${c.title}', ${c.price})">Buy Now</button>
+                        </div>
+                    </div>
+                `;
+            });
         }
-    }
-    function verifyOTP() {
-        let otp = document.getElementById('otpCode').value;
-        if(otp.length >= 4) {
-            isLoggedIn = true;
-            closeLogin();
-            document.getElementById('profile-name').innerText = "Student (" + document.getElementById('mobileNumber').value + ")";
-            document.getElementById('profile-phone').innerText = "Logged in successfully";
-            document.getElementById('profileLoginBtn').style.display = 'none';
-            alert("Login Successful! You can now purchase courses.");
-        } else {
-            alert("OTP தவறு.");
-        }
+        document.getElementById('course-list').innerHTML = html;
     }
 
-    // Admin / Owner System
-    function showAdminLogin() {
-        document.getElementById('adminLoginModal').style.display = 'flex';
+    // Direct Buy -> QR Modal
+    function openBuyModal(id, title, price) {
+        currentPayCourseId = id;
+        document.getElementById('qrTitle').innerText = `Pay ₹ ${price}`;
+        document.getElementById('utrInput').value = '';
+        document.getElementById('qrModal').style.display = 'flex';
     }
+
+    async function submitUTR() {
+        let utr = document.getElementById('utrInput').value.trim();
+        if(utr.length < 6) {
+            showToast("Enter a valid UTR number!");
+            return;
+        }
+        
+        document.getElementById('qrModal').style.display = 'none';
+        showToast("Payment Submitted! Waiting for Owner Approval.");
+        
+        // Save to Supabase (simulated user_id for no-login flow)
+        await sb.from("payment_requests").insert({ 
+            course_id: currentPayCourseId, 
+            utr: utr, 
+            status: "pending" 
+        });
+
+        if(isAdmin) loadPendingRequests();
+    }
+
+    // Notifications
+    async function checkNotifications() {
+        const { data } = await sb.from("notifications").select("*").order("created_at", {ascending: false});
+        if(data && data.length > 0) {
+            document.getElementById('bellDot').innerText = data.length;
+            document.getElementById('bellDot').style.display = 'flex';
+            
+            let html = '';
+            data.forEach(n => {
+                html += `<div class="note-card">${n.message}</div>`;
+            });
+            document.getElementById('noteList').innerHTML = html;
+        }
+    }
+    function openNotifications() {
+        document.getElementById('bellDot').style.display = 'none'; // Mark seen
+        document.getElementById('noteModal').style.display = 'flex';
+    }
+
+    // ADMIN FUNCTIONS
+    function showAdminLogin() { document.getElementById('adminLoginModal').style.display = 'flex'; }
+    
     function verifyAdmin() {
         if(document.getElementById('adminPassword').value === 'admin123') {
             isAdmin = true;
@@ -392,49 +419,67 @@
             document.getElementById('adminLoginModal').style.display = 'none';
             document.getElementById('ownerTabBtn').style.display = 'block';
             document.getElementById('profile-name').innerText = "M2 Stitches Owner";
-            document.getElementById('profile-phone').innerText = "Admin Dashboard Unlocked";
-            document.getElementById('profileLoginBtn').style.display = 'none';
-            document.getElementById('ownerTabBtn').click(); // Auto open admin tab
-            alert("Welcome Owner!");
+            document.getElementById('ownerTabBtn').click();
+            showToast("Welcome Owner!");
+            loadPendingRequests();
         } else {
-            alert("தவறான கடவுச்சொல் (Wrong Password)");
+            showToast("Wrong Password!");
         }
     }
+    
     function logoutAdmin() {
-        isAdmin = false;
         localStorage.removeItem('m2_admin');
         location.reload();
     }
-    function addNewCourse() {
+
+    async function addNewCourse() {
         let t = document.getElementById('adminCName').value;
+        let c = document.getElementById('adminCat').value || 'Blouse';
         let p = document.getElementById('adminCPrice').value;
         let o = document.getElementById('adminCOldPrice').value;
-        let tg = document.getElementById('adminCTags').value;
-        let img = document.getElementById('adminCImg').value;
 
-        if(t && p) {
-            let newC = {
-                title: t,
-                price: parseInt(p),
-                oldPrice: o ? parseInt(o) : null,
-                tags: tg ? tg.split(',') : ["NEW"],
-                img: img || "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop"
-            };
-            myCourses.unshift(newC); // Add to top
-            localStorage.setItem('m2_courses', JSON.stringify(myCourses));
-            renderCourses();
-            
-            // Clear inputs
-            document.querySelectorAll('.admin-panel input').forEach(inpt => inpt.value = '');
-            alert("Course Added Successfully! Go to Store tab to see it.");
-        } else {
-            alert("Title & Selling Price are mandatory!");
-        }
+        if(!t || !p) { showToast("Title and Selling Price are required!"); return; }
+
+        await sb.from("courses").insert({
+            title: t,
+            category: c,
+            price: parseInt(p),
+            old_price: o ? parseInt(o) : null
+        });
+
+        showToast("Course Published Successfully!");
+        document.querySelectorAll('.admin-panel input').forEach(inpt => inpt.value = '');
+        fetchCourses();
     }
 
-    // Run on load
-    init();
+    async function loadPendingRequests() {
+        const { data } = await sb.from("payment_requests").select("*, courses(title)").eq("status", "pending");
+        let html = '';
+        if(data && data.length > 0) {
+            data.forEach(req => {
+                let cTitle = req.courses ? req.courses.title : 'Unknown Course';
+                html += `
+                    <div class="note-card">
+                        <strong>${cTitle}</strong><br>
+                        UTR: <span style="color:var(--primary);">${req.utr}</span>
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <button class="btn" style="padding:6px; font-size:0.85rem;" onclick="approvePay(${req.id})">Approve</button>
+                        </div>
+                    </div>`;
+            });
+        } else {
+            html = '<p style="font-size:0.85rem; color:var(--text-muted);">No pending requests.</p>';
+        }
+        document.getElementById('adminUtrList').innerHTML = html;
+    }
 
+    async function approvePay(id) {
+        await sb.from("payment_requests").update({status: "approved"}).eq("id", id);
+        showToast("Payment Approved!");
+        loadPendingRequests();
+    }
+
+    init();
 </script>
 </body>
 </html>
