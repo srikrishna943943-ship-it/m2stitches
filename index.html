@@ -258,7 +258,6 @@
             <h2 style="color: var(--primary); margin-bottom: 15px;">Owner Login</h2>
             <input type="password" id="adminPassword" class="input-box" placeholder="Enter Password">
             <button class="btn" onclick="verifyAdmin()">Unlock Admin</button>
-            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:10px;">Hint: admin123</p>
         </div>
     </div>
 
@@ -413,7 +412,7 @@
     function showAdminLogin() { document.getElementById('adminLoginModal').style.display = 'flex'; }
     
     function verifyAdmin() {
-        if(document.getElementById('adminPassword').value === 'admin123') {
+        if(document.getElementById('adminPassword').value === 'Nilla@7') {
             isAdmin = true;
             localStorage.setItem('m2_admin', 'true');
             document.getElementById('adminLoginModal').style.display = 'none';
