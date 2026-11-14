@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17140f">
+<title>M2 Stitches</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Sans+Tamil:wght@400;600&display=swap">
+<style>
+:root{--bg:#f6f1e7;--card:#fffdf8;--text:#17140f;--muted:#7a7061;--gold:#b08d4a;--line:#e4dccb;--ink:#17140f;--on-ink:#f6f1e7;--goldt:#d9b873;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#100e0a;--card:#1b1812;--text:#f3ecdd;--muted:#a79c88;--gold:#d2b074;--line:#2c271d;--ink:#221d14;--on-ink:#f3ecdd;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 'Noto Sans Tamil',system-ui,sans-serif;padding-bottom:84px}
+.wrap{max-width:480px;margin:0 auto}
+header{position:sticky;top:0;z-index:11;background:var(--ink);color:var(--goldt);display:flex;align-items:center;gap:12px;padding:12px 16px}
+.mono{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--goldt);display:grid;place-items:center;font:700 17px 'Cormorant Garamond',serif}
+header b{font:700 22px 'Cormorant Garamond',serif;flex:1;color:var(--on-ink)}
+button{font:inherit;cursor:pointer}
+.bell{background:none;border:0;color:var(--goldt);font-size:22px;position:relative}
+.dot{position:absolute;top:0;right:-2px;background:#c0392b;color:#fff;border-radius:9px;font-size:11px;min-width:16px;line-height:16px}
+main{padding:16px}
+h2{font:700 24px 'Cormorant Garamond',serif;margin:22px 0 10px}
+.hero{background:var(--ink);color:var(--on-ink);border-radius:18px;padding:26px 22px;border:1px solid var(--gold)}
+.hero h1{font:700 34px/1.1 'Cormorant Garamond',serif;margin:0 0 8px;color:var(--goldt)}
+.hero p{margin:0 0 16px;opacity:.85}
+.btn{background:var(--gold);color:#17140f;border:0;border-radius:10px;padding:11px 18px;font-weight:600;display:block;text-align:center;text-decoration:none}
+.btn.ghost{background:none;border:1px solid var(--gold);color:var(--text)}
+.btn.full{width:100%;margin-bottom:8px}
+.card{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:12px;cursor:pointer;text-align:left;width:100%;color:inherit}
+.th{width:88px;height:88px;border-radius:10px;background:var(--ink);color:var(--goldt);display:grid;place-items:center;font:700 30px 'Cormorant Garamond',serif;flex:none;border:1px solid var(--gold)}
+.card h3{margin:0 0 4px;font-size:16px}
+.price{font-weight:600}.old{color:var(--muted);text-decoration:line-through;margin-left:6px;font-weight:400;font-size:14px}
+.tag{font-size:12px;color:var(--gold);border:1px solid var(--gold);border-radius:6px;padding:0 6px;margin-left:6px}
+input,textarea,select{width:100%;font:inherit;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--text);margin:0 0 10px}
+.row{display:flex;gap:10px}.row>*{flex:1}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:20}
+nav button{flex:1;background:none;border:0;padding:10px 0 9px;color:var(--muted);font-size:13px}
+nav button.on{color:var(--gold);font-weight:600}
+nav i{display:block;font-style:normal;font-size:20px}
+#sheet{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;z-index:30}
+#sheet.show{display:flex}
+.sh{background:var(--bg);width:min(100%,480px);border-radius:20px 20px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom,0px));max-height:90%;overflow:auto}
+.sh h3{font:700 26px 'Cormorant Garamond',serif;margin:0 0 6px}
+.qr{border:1.5px dashed var(--gold);border-radius:12px;padding:14px;text-align:center;color:var(--muted);margin:12px 0}
+.qr img{max-width:220px;width:100%;border-radius:8px}
+.note{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:14px}
+.muted{color:var(--muted)}
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:var(--on-ink);border:1px solid var(--gold);padding:10px 16px;border-radius:10px;z-index:40;display:none;max-width:90%}
+</style></head><body>
+<div class="wrap">
+<header><div class="mono">M2</div><b>M2 Stitches</b><button class="bell" id="bell" aria-label="Notifications" hidden>&#128276;<span class="dot" id="dot" hidden></span></button></header>
+<main id="view"><p class="muted">Loading…</p></main>
+</div>
+<nav id="nav" hidden></nav>
+<div id="sheet"><div class="sh" id="sh"></div></div>
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+/* ---- Fill these 2 lines from Supabase: Project Settings > API (anon public key only) ---- */
+var SB_URL="https://ykwfhtsphqyrscojclhk.supabase.co",SB_KEY="sb_publishable_4w_bwrUQOBY60Zauc2pDiw_ommX-WQD";
+/* ---- Optional: your UPI ID shown under the QR. Put your QR picture in this folder as qr.png ---- */
+var UPI="";
+var IG="https://www.instagram.com/m2__stiches__",YT="https://www.youtube.com/@M2stiches";
+var sb=supabase.createClient(SB_URL,SB_KEY);
+var S={tab:"home",user:null,admin:false,courses:[],pays:[],notes:[],reqs:[],names:{},seen:0};
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},3000)}
+function cById(id){return S.courses.filter(function(c){return c.id==id})[0]}
+function stat(id){var r=S.pays.filter(function(p){return p.course_id==id});if(r.some(function(p){return p.status=="approved"}))return"ok";if(r.some(function(p){return p.status=="pending"}))return"wait";return""}
+function go(t){S.tab=t;render();window.scrollTo(0,0)}
+function sheet(h){$("sh").innerHTML=h;$("sheet").classList.add("show")}
+function closeS(){$("sheet").classList.remove("show")}
+$("sheet").onclick=function(e){if(e.target==this)closeS()};
+function seenGet(){try{return +localStorage.getItem("m2seen")||0}catch(e){return 0}}
+function seenSet(n){try{localStorage.setItem("m2seen",n)}catch(e){}}
+
+async function load(){
+var s=await sb.auth.getSession();S.user=s.data.session?s.data.session.user:null;
+S.courses=(await sb.from("courses").select("*").order("id")).data||[];
+if(S.user){
+var u=S.user.id;
+var pr=await sb.from("profiles").select("is_admin").eq("id",u).maybeSingle();S.admin=!!(pr.data&&pr.data.is_admin);
+S.pays=(await sb.from("payment_requests").select("*").eq("user_id",u)).data||[];
+S.notes=(await sb.from("notifications").select("*").order("created_at",{ascending:false})).data||[];
+if(S.admin){S.reqs=(await sb.from("payment_requests").select("*").eq("status","pending").order("id")).data||[];
+var ids=S.reqs.map(function(r){return r.user_id});S.names={};
+if(ids.length){((await sb.from("profiles").select("id,name").in("id",ids)).data||[]).forEach(function(p){S.names[p.id]=p.name})}}
+}
+render()}
+
+function cardH(c){var st=stat(c.id);return '<button class="card" onclick="openC('+c.id+')"><div class="th">'+esc(c.title.charAt(0))+'</div><div><h3>'+esc(c.title)+'</h3><span class="price">&#8377;'+c.price+'</span>'+(c.old_price?'<span class="old">&#8377;'+c.old_price+'</span>':'')+(st=="ok"?'<span class="tag">Purchased</span>':st=="wait"?'<span class="tag">Waiting</span>':'')+'</div></button>'}
+
+function render(){
+var v=$("view"),h="";
+$("bell").hidden=!S.user;$("nav").hidden=!S.user;
+if(!S.user){
+v.innerHTML='<div class="hero"><h1>Learn tailoring at home</h1><p>வீட்டிலிருந்தே தையல் கற்றுக்கொள்ளுங்கள். Log in or create an account to start.</p></div><h2>Your account</h2><input id="nm" placeholder="Name (for new accounts)"><input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password (6 or more characters)"><button class="btn full" onclick="auth(\'in\')">Log in</button><button class="btn ghost full" onclick="auth(\'up\')">Create account</button>';return}
+if(S.tab=="home"){
+h='<div class="hero"><h1>Learn tailoring at home</h1><p>Video classes you can watch any time.</p><button class="btn" onclick="go(\'store\')">Browse courses</button></div><h2>Popular courses</h2>'+(S.courses.slice(0,2).map(cardH).join("")||'<p class="muted">Courses will appear here soon.</p>')+'<h2>Follow us</h2><div class="row"><a class="btn ghost" target="_blank" rel="noopener" href="'+YT+'">YouTube</a><a class="btn ghost" target="_blank" rel="noopener" href="'+IG+'">Instagram</a></div>'}
+if(S.tab=="store"){h='<h2>Courses ('+S.courses.length+')</h2>'+(S.courses.map(cardH).join("")||'<p class="muted">No courses yet.</p>')}
+if(S.tab=="mine"){
+var m=S.courses.filter(function(c){return stat(c.id)});
+h='<h2>My courses</h2>'+(m.map(cardH).join("")||'<p class="muted">You have no courses yet. Pick one from the Store.</p><button class="btn" onclick="go(\'store\')">Go to Store</button>')+'<h2>Account</h2><button class="btn ghost full" onclick="logout()">Log out</button>'}
+if(S.tab=="admin"&&S.admin){
+h='<h2>Payment requests</h2>'+(S.reqs.map(function(r){var c=cById(r.course_id)||{title:"Course",price:0};return '<div class="note"><b>'+esc(c.title)+'</b> &middot; &#8377;'+c.price+'<br>'+esc(S.names[r.user_id]||"Student")+' &middot; UTR: '+esc(r.utr)+'<div class="row" style="margin-top:8px"><button class="btn" onclick="dec('+r.id+',1)">Approve</button><button class="btn ghost" onclick="dec('+r.id+',0)">Reject</button></div></div>'}).join("")||'<p class="muted">No pending requests.</p>')+
+'<h2>Send notification</h2><textarea id="nt" rows="2" placeholder="Example: New blouse class is live!"></textarea><button class="btn full" onclick="sendN()">Send to all students</button>'+
+'<h2>Add a course</h2><input id="nn" placeholder="Course name"><textarea id="nd" rows="2" placeholder="Short description"></textarea><div class="row"><input id="np" type="number" placeholder="Price"><input id="no" type="number" placeholder="Old price"></div><button class="btn full" onclick="addC()">Add course</button>'+
+'<h2>Add a video to a course</h2><select id="vc">'+S.courses.map(function(c){return '<option value="'+c.id+'">'+esc(c.title)+'</option>'}).join("")+'</select><input id="vt" placeholder="Video title"><input id="vu" placeholder="YouTube unlisted link"><button class="btn full" onclick="addV()">Add video</button>'}
+v.innerHTML=h;
+var N=[["home","&#127968;","Home"],["store","&#128717;","Store"],["mine","&#127891;","My courses"]];if(S.admin)N.push(["admin","&#9881;","Owner"]);
+$("nav").innerHTML=N.map(function(n){return '<button class="'+(S.tab==n[0]?"on":"")+'" onclick="go(\''+n[0]+'\')"><i>'+n[1]+'</i>'+n[2]+'</button>'}).join("");
+var un=Math.max(0,S.notes.length-seenGet());$("dot").hidden=!un;$("dot").textContent=un}
+
+$("bell").onclick=function(){seenSet(S.notes.length);sheet('<h3>Notifications</h3>'+(S.notes.map(function(n){return '<div class="note">'+esc(n.message)+'</div>'}).join("")||'<p class="muted">No notifications yet.</p>')+'<button class="btn ghost full" onclick="closeS()">Close</button>');render()};
+
+async function auth(mode){
+var e=$("em").value.trim(),p=$("pw").value,n=$("nm").value.trim(),r;
+if(!e||p.length<6){toast("Enter your email and a password of 6 or more characters");return}
+if(mode=="up")r=await sb.auth.signUp({email:e,password:p,options:{data:{name:n}}});else r=await sb.auth.signInWithPassword({email:e,password:p});
+if(r.error){toast(r.error.message);return}
+if(mode=="up"&&!r.data.session){toast("Account created. Check your email to confirm, then log in.");return}
+S.tab="home";load()}
+async function logout(){await sb.auth.signOut();S.user=null;S.admin=false;render()}
+
+async function openC(id){
+var c=cById(id),st=stat(id);
+if(st=="ok"){
+var vs=(await sb.from("course_videos").select("*").eq("course_id",id).order("position").order("id")).data||[];
+sheet('<h3>'+esc(c.title)+'</h3><p class="muted">'+esc(c.description||"")+'</p>'+(vs.map(function(x){return '<a class="btn full" target="_blank" rel="noopener" href="'+esc(x.video_url)+'">&#9654; '+esc(x.title)+'</a>'}).join("")||'<p class="muted">Videos will be added soon.</p>'));return}
+sheet('<h3>'+esc(c.title)+'</h3><p class="muted">'+esc(c.description||"")+'</p><p><span class="price">&#8377;'+c.price+'</span>'+(c.old_price?'<span class="old">&#8377;'+c.old_price+'</span>':'')+'</p>'+(st=="wait"?'<p class="note">Your payment request is waiting for approval.</p>':'<button class="btn full" onclick="payC('+id+')">Buy for &#8377;'+c.price+'</button>'))}
+function payC(id){var c=cById(id);
+sheet('<h3>Pay &#8377;'+c.price+'</h3><p class="muted">Scan the QR with GPay, PhonePe or Paytm. Then enter the transaction ID (UTR) from your payment.</p><div class="qr"><img src="qr.png" alt="Payment QR" onerror="this.replaceWith(document.createTextNode(\'QR code not added yet\'))">'+(UPI?'<br>UPI ID: '+esc(UPI):'')+'</div><input id="utr" inputmode="numeric" placeholder="UTR number"><button class="btn full" onclick="sendR('+id+')">I have paid – send request</button>')}
+async function sendR(id){var u=$("utr").value.trim();if(u.length<6){toast("Enter the UTR number from your payment");return}
+var r=await sb.from("payment_requests").insert({course_id:id,utr:u});if(r.error){toast(r.error.message);return}
+closeS();toast("Request sent. You will get access after approval.");await load();go("mine")}
+async function dec(id,ok){var r=await sb.from("payment_requests").update({status:ok?"approved":"rejected"}).eq("id",id);if(r.error){toast(r.error.message);return}toast(ok?"Approved. The course is open for the student.":"Rejected");load()}
+async function sendN(){var t=$("nt").value.trim();if(!t)return;var r=await sb.from("notifications").insert({message:t});if(r.error){toast(r.error.message);return}toast("Sent to all students");load()}
+async function addC(){var n=$("nn").value.trim(),p=+$("np").value;if(!n||!p){toast("Enter a course name and price");return}
+var r=await sb.from("courses").insert({title:n,description:$("nd").value.trim(),price:p,old_price:+$("no").value||null});if(r.error){toast(r.error.message);return}toast("Course added");load()}
+async function addV(){var t=$("vt").value.trim(),u=$("vu").value.trim(),c=$("vc").value;if(!c||!t||!u){toast("Choose a course and enter a title and link");return}
+var r=await sb.from("course_videos").insert({course_id:+c,title:t,video_url:u});if(r.error){toast(r.error.message);return}toast("Video added");$("vt").value="";$("vu").value=""}
+sb.auth.onAuthStateChange(function(ev){if(ev=="SIGNED_OUT"){S.user=null;render()}});
+load();
+</script></body></html>
