@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>M2 Stitches</title>
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500;600;700;800&family=Hind+Madurai:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
     <style>
         :root {
@@ -24,7 +22,6 @@
         body { font-family: 'Hind Madurai', sans-serif; color: var(--text-dark); background-color: var(--bg-color); padding-bottom: 70px; overflow-x: hidden;}
         h1, h2, h3 { font-family: 'Baloo Thambi 2', sans-serif; margin: 0; }
 
-        /* Header */
         header { background: var(--primary); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
         .header-left { display: flex; align-items: center; gap: 12px; }
         .header-left img { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid white; object-fit: cover;}
@@ -32,38 +29,33 @@
         .bell-icon { font-size: 1.4rem; position: relative; cursor: pointer;}
         .bell-dot { position: absolute; top: 0px; right: 0px; background: #f1c40f; color: #000; width: 14px; height: 14px; border-radius: 50%; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;}
 
-        /* Sections */
         .app-container { max-width: 600px; margin: 0 auto; min-height: 100vh; background: var(--bg-color); }
         .section { display: none; padding: 15px; animation: fadeIn 0.3s ease; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Search & Filter Blocks */
         .search-container { background: var(--card-bg); padding: 10px 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--card-border); margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
         .search-container input { border: none; outline: none; width: 100%; font-size: 0.95rem; font-family: 'Hind Madurai', sans-serif; background: transparent;}
         .search-container svg { width: 20px; height: 20px; fill: var(--text-muted); }
 
         .filter-blocks { display: flex; gap: 15px; margin-bottom: 25px; }
-        .block-card { flex: 1; padding: 20px 15px; border-radius: 12px; color: white; position: relative; overflow: hidden;}
+        .block-card { flex: 1; padding: 20px 15px; border-radius: 12px; color: white; position: relative; overflow: hidden; cursor:pointer;}
         .block-live { background: linear-gradient(135deg, #7E0F13, #B3181E); }
         .block-recorded { background: linear-gradient(135deg, #27ae60, #2ecc71); }
         .block-card h3 { font-size: 1.1rem; margin-bottom: 5px; z-index: 2; position: relative;}
         .block-card .arrow { font-size: 1.2rem; font-weight: bold; margin-top: 15px; display: block; }
         .block-icon { position: absolute; right: -10px; bottom: -10px; opacity: 0.2; width: 80px; height: 80px; }
 
-        /* Social Links */
         .social-row { display: flex; gap: 10px; margin-top: 15px; margin-bottom: 20px;}
         .social-row a { flex: 1; text-align: center; padding: 10px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 0.9rem;}
         .btn-yt { background: #ffebee; color: #c0392b; border: 1px solid #c0392b;}
         .btn-ig { background: #fdf2e9; color: #d35400; border: 1px solid #d35400;}
 
-        /* Categories */
         .category-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: none; }
         .category-scroll::-webkit-scrollbar { display: none; }
         .cat-pill { padding: 8px 16px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; cursor: pointer; transition: 0.2s;}
         .cat-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* Course List */
         .course-card { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--card-border); }
         .course-img { width: 120px; height: 90px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #FBF1DC;}
         .course-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between;}
@@ -75,29 +67,28 @@
         .price-old { font-size: 0.8rem; color: var(--text-muted); text-decoration: line-through; }
         .price-off { font-size: 0.8rem; color: var(--primary); font-weight: 700; }
 
-        /* Profile & Admin */
         .profile-header { text-align: center; padding: 20px 0; border-bottom: 1px solid var(--card-border); background: var(--card-bg); margin: -15px -15px 15px -15px;}
         .profile-tabs { display: flex; border-bottom: 1px solid var(--card-border); overflow-x: auto; background: var(--card-bg); margin: 0 -15px 20px -15px; scrollbar-width: none;}
         .profile-tabs::-webkit-scrollbar { display: none; }
         .p-tab { padding: 12px 20px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; cursor: pointer; text-transform: uppercase;}
         .p-tab.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
-        .admin-panel { background: #fff; padding: 20px; border-radius: 12px; border: 2px dashed var(--primary); margin-top: 20px; display: none;}
+        
+        .admin-panel { background: #fff; padding: 20px; border-radius: 12px; border: 2px dashed var(--primary); margin-top: 20px;}
         .note-card { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--primary); border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 0.9rem;}
 
-        /* Form & Modals */
         .input-box { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--card-border); border-radius: 8px; font-family: 'Hind Madurai', sans-serif; font-size: 0.95rem; outline: none;}
         .input-box:focus { border-color: var(--primary); }
-        .btn { display: block; width: 100%; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 1rem; background: var(--primary); color: white; border: none; cursor: pointer; font-family: 'Baloo Thambi 2', sans-serif; text-align: center;}
+        .btn { display: block; width: 100%; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 1rem; background: var(--primary); color: white; border: none; cursor: pointer; font-family: 'Baloo Thambi 2', sans-serif; text-align: center; text-decoration: none;}
         .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); margin-top: 10px;}
         
-        /* Modals */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); z-index: 200; align-items: flex-end; justify-content: center; }
         .modal-box { background: var(--bg-color); width: 100%; max-width: 600px; padding: 25px; border-radius: 20px 20px 0 0; position: relative; max-height: 90vh; overflow-y: auto;}
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); font-weight: bold;}
-        .qr-box { border: 2px dashed var(--primary); border-radius: 12px; padding: 15px; text-align: center; margin: 15px 0; background: white;}
-        .qr-box img { max-width: 220px; width: 100%; border-radius: 8px; }
+        
+        .qr-box { border: 2px dashed var(--primary); border-radius: 12px; padding: 15px; text-align: center; margin: 15px 0; background: white; cursor: pointer; display: block; text-decoration: none;}
+        .qr-box img { max-width: 200px; width: 100%; border-radius: 8px; margin-bottom: 10px;}
+        .qr-box span { display: block; color: var(--primary); font-weight: bold; font-size: 0.9rem;}
 
-        /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 600px; left: 50%; transform: translateX(-50%); background: var(--white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid var(--card-border); z-index: 100;}
         .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); font-size: 0.75rem; font-weight: 600; cursor: pointer; width: 25%;}
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; margin-bottom: 4px; }
@@ -110,7 +101,6 @@
 
 <div class="app-container">
 
-    <!-- Header -->
     <header>
         <div class="header-left">
             <img src="icon-192.png" alt="Logo">
@@ -125,7 +115,7 @@
     <main id="home" class="section active">
         <div class="search-container">
             <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            <input type="text" placeholder="Search for courses...">
+            <input type="text" id="searchInput" placeholder="Search for courses..." onkeyup="searchCourses()">
         </div>
 
         <div class="filter-blocks">
@@ -182,19 +172,32 @@
 
         <div class="profile-tabs">
             <div class="p-tab active" onclick="switchProfileTab('p-courses', this)">My Courses</div>
-            <div class="p-tab" id="ownerTabBtn" style="display:none;" onclick="switchProfileTab('p-admin', this)">⭐ Admin panel</div>
+            <div class="p-tab" onclick="switchProfileTab('p-restore', this)">Restore Purchase</div>
+            <div class="p-tab" id="ownerTabBtn" style="display:none;" onclick="switchProfileTab('p-admin', this)">⭐ Admin</div>
         </div>
 
-        <div id="p-courses" class="p-content" style="text-align: center; padding-top: 20px;">
-            <p style="color: var(--text-muted); font-size: 0.9rem;">You don't have any purchased courses yet.</p>
+        <!-- My Courses (Purchased) -->
+        <div id="p-courses" class="p-content" style="padding-top: 10px;">
+            <div id="my-purchased-list">
+                <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-top:20px;">You don't have any purchased courses yet.</p>
+            </div>
+        </div>
+
+        <!-- Restore Purchase using UTR -->
+        <div id="p-restore" class="p-content" style="display:none;">
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom:15px;">பணம் செலுத்திய UTR எண்ணை உள்ளிட்டு உங்கள் வகுப்புகளைப் பார்க்கலாம்.</p>
+            <input type="text" id="restoreUtr" class="input-box" placeholder="Enter your paid UTR Number">
+            <button class="btn" onclick="restoreCourse()">Get My Courses</button>
         </div>
 
         <!-- OWNER / ADMIN PANEL -->
         <div id="p-admin" class="p-content" style="display:none;">
-            <div class="admin-panel" style="display: block;">
+            <div class="admin-panel">
                 <h3 style="color: var(--primary); margin-bottom: 20px;">Add New Course</h3>
                 <input type="text" id="adminCName" class="input-box" placeholder="Course Title (ex: Blouse Class)">
                 <input type="text" id="adminCat" class="input-box" placeholder="Category (Blouse / Tailoring / Chudithar)">
+                <input type="text" id="adminCImg" class="input-box" placeholder="Thumbnail Image Link (URL)">
+                <input type="text" id="adminCVideo" class="input-box" placeholder="Video Link (YouTube Unlisted / Drive)">
                 <input type="number" id="adminCPrice" class="input-box" placeholder="Selling Price (₹)">
                 <input type="number" id="adminCOldPrice" class="input-box" placeholder="Original Price (₹)">
                 
@@ -229,12 +232,15 @@
         <div class="modal-box">
             <div class="close-btn" onclick="closeModal('qrModal')">×</div>
             <h2 style="color: var(--primary); margin-bottom: 5px;" id="qrTitle">Pay ₹0</h2>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Scan QR with GPay / PhonePe / Paytm.</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Pay directly via GPay / PhonePe</p>
             
-            <div class="qr-box">
+            <!-- UPI Deep Link Wrapper -->
+            <a href="#" id="upiPayLink" class="qr-box">
                 <img src="qr.png" alt="Payment QR Code">
-            </div>
+                <span>🔗 Tap here to open GPay / PhonePe</span>
+            </a>
             
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">பணம் செலுத்திய பின், UTR எண்ணை கீழே உள்ளிடவும்.</p>
             <input type="text" id="utrInput" class="input-box" placeholder="Enter 12-digit UTR Number" inputmode="numeric">
             <button class="btn" onclick="submitUTR()">Submit Payment</button>
         </div>
@@ -265,27 +271,29 @@
 <div id="toast">Message</div>
 
 <script>
-    // Supabase config
-    const SB_URL = "https://ykwfhtsphqyrscojclhk.supabase.co";
-    const SB_KEY = "sb_publishable_4w_bwrUQOBY60Zauc2pDiw_ommX-WQD";
-    const sb = supabase.createClient(SB_URL, SB_KEY);
+    /* YOUR UPI ID IS SET HERE */
+    const MY_UPI_ID = "rooba25905-1@okicici"; 
 
+    // Local DB Simulation (No Login needed)
     let isAdmin = localStorage.getItem('m2_admin') === 'true';
+    let myPurchases = JSON.parse(localStorage.getItem('m2_purchases')) || []; // Store user's UTRs
     let currentPayCourseId = null;
-    let allCourses = [];
+    let allCourses = JSON.parse(localStorage.getItem('m2_all_courses')) || [
+        { id: 1, title: "A-Z Blouse Cutting & Stitching", category: "Blouse", price: 999, old_price: 2000, img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800", video: "https://youtube.com/", tags: ["VIDEOS"] },
+        { id: 2, title: "Chudithar Masterclass", category: "Chudithar", price: 799, old_price: 1500, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=800", video: "https://youtube.com/", tags: ["FREE CONTENT"] }
+    ];
+    let allRequests = JSON.parse(localStorage.getItem('m2_all_requests')) || []; // Admin sees this
 
-    // Initialize App
     async function init() {
         if(isAdmin) {
             document.getElementById('ownerTabBtn').style.display = 'block';
             document.getElementById('profile-name').innerText = "M2 Stitches Owner";
             loadPendingRequests();
         }
-        await fetchCourses();
-        checkNotifications();
+        filterCourses('All');
+        loadMyCourses();
     }
 
-    // Toast Message
     function showToast(msg) {
         let t = document.getElementById('toast');
         t.innerText = msg;
@@ -293,7 +301,7 @@
         setTimeout(() => { t.style.display = 'none'; }, 3000);
     }
 
-    // Navigation Logic
+    // Navigation
     function switchTab(tabId, element) {
         document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
@@ -308,51 +316,48 @@
         document.querySelectorAll('.p-tab').forEach(nav => nav.classList.remove('active'));
         element.classList.add('active');
     }
-
-    // Modal Logic
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function openNotifications() { document.getElementById('noteModal').style.display = 'flex'; }
 
-    // Fetch Courses from Supabase (or fallback)
-    async function fetchCourses() {
-        const { data, error } = await sb.from("courses").select("*").order("id", { ascending: false });
-        if(data && data.length > 0) {
-            allCourses = data;
-        } else {
-            // Dummy fallback if Supabase is empty
-            allCourses = [
-                { id: 1, title: "A-Z Blouse Cutting & Stitching", category: "Blouse", price: 999, old_price: 2000, tags: ["VIDEOS"] },
-                { id: 2, title: "Chudithar Masterclass", category: "Chudithar", price: 799, old_price: 1500, tags: ["FREE CONTENT"] }
-            ];
-        }
-        filterCourses('All'); // Initial render
-    }
-
-    // Render & Filter Courses
+    // STORE: Render & Filter
     function filterCourses(cat) {
-        // Update Pills UI
         document.querySelectorAll('.cat-pill').forEach(p => {
             if(p.innerText.includes(cat)) p.classList.add('active');
             else p.classList.remove('active');
         });
-
         let filtered = cat === 'All' ? allCourses : allCourses.filter(c => c.category && c.category.toLowerCase().includes(cat.toLowerCase()));
-        
+        renderStoreUI(filtered);
+    }
+
+    function searchCourses() {
+        let q = document.getElementById('searchInput').value.toLowerCase();
+        let filtered = allCourses.filter(c => c.title.toLowerCase().includes(q));
+        renderStoreUI(filtered);
+        document.getElementById('nav-store').click();
+    }
+
+    function renderStoreUI(filtered) {
         let html = '';
         if(filtered.length === 0) {
-            html = '<p style="text-align:center; color:#8a7268; margin-top:20px;">No courses found in this category.</p>';
+            html = '<p style="text-align:center; color:var(--text-muted); margin-top:20px;">No courses found.</p>';
         } else {
             filtered.forEach(c => {
                 let offPercent = c.old_price ? Math.round(((c.old_price - c.price) / c.old_price) * 100) : 0;
+                let isPurchased = myPurchases.find(p => p.courseId === c.id && p.status === 'approved');
+                
                 html += `
                     <div class="course-card">
-                        <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop" class="course-img">
+                        <img src="${c.img}" class="course-img">
                         <div class="course-info">
                             <h3 class="course-title">${c.title}</h3>
                             <div class="course-price-row">
                                 <span class="price-new">₹ ${c.price}</span>
                                 ${c.old_price ? `<span class="price-old">₹ ${c.old_price}</span> <span class="price-off">${offPercent}% OFF</span>` : ''}
                             </div>
-                            <button class="btn" style="padding: 6px; font-size:0.9rem;" onclick="openBuyModal(${c.id}, '${c.title}', ${c.price})">Buy Now</button>
+                            ${isPurchased ? 
+                                `<button class="btn" style="background:var(--success); padding: 6px; font-size:0.9rem;" onclick="watchVideo('${c.video}')">▶ Watch Video</button>` : 
+                                `<button class="btn" style="padding: 6px; font-size:0.9rem;" onclick="openBuyModal(${c.id}, '${c.title}', ${c.price})">Buy Now</button>`
+                            }
                         </div>
                     </div>
                 `;
@@ -361,51 +366,85 @@
         document.getElementById('course-list').innerHTML = html;
     }
 
-    // Direct Buy -> QR Modal
+    // BUY & UPI Deep Link
     function openBuyModal(id, title, price) {
         currentPayCourseId = id;
         document.getElementById('qrTitle').innerText = `Pay ₹ ${price}`;
         document.getElementById('utrInput').value = '';
+        
+        // Generate UPI Deep Link
+        let upiString = `upi://pay?pa=${MY_UPI_ID}&pn=M2%20Stitches&am=${price}&cu=INR`;
+        document.getElementById('upiPayLink').href = upiString;
+
         document.getElementById('qrModal').style.display = 'flex';
     }
 
-    async function submitUTR() {
+    function submitUTR() {
         let utr = document.getElementById('utrInput').value.trim();
-        if(utr.length < 6) {
-            showToast("Enter a valid UTR number!");
-            return;
-        }
+        if(utr.length < 6) { showToast("Enter a valid UTR number!"); return; }
         
+        // Save Request for Admin
+        let req = { id: Date.now(), courseId: currentPayCourseId, utr: utr, status: "pending" };
+        allRequests.push(req);
+        localStorage.setItem('m2_all_requests', JSON.stringify(allRequests));
+
+        // Save Request Locally for Student (No Login memory)
+        myPurchases.push(req);
+        localStorage.setItem('m2_purchases', JSON.stringify(myPurchases));
+
         document.getElementById('qrModal').style.display = 'none';
-        showToast("Payment Submitted! Waiting for Owner Approval.");
+        showToast("Payment Submitted! Check 'My Courses' for approval.");
         
-        // Save to Supabase (simulated user_id for no-login flow)
-        await sb.from("payment_requests").insert({ 
-            course_id: currentPayCourseId, 
-            utr: utr, 
-            status: "pending" 
-        });
-
         if(isAdmin) loadPendingRequests();
+        loadMyCourses();
     }
 
-    // Notifications
-    async function checkNotifications() {
-        const { data } = await sb.from("notifications").select("*").order("created_at", {ascending: false});
-        if(data && data.length > 0) {
-            document.getElementById('bellDot').innerText = data.length;
-            document.getElementById('bellDot').style.display = 'flex';
-            
-            let html = '';
-            data.forEach(n => {
-                html += `<div class="note-card">${n.message}</div>`;
-            });
-            document.getElementById('noteList').innerHTML = html;
-        }
+    // MY COURSES (Student Dashboard)
+    function loadMyCourses() {
+        let html = '';
+        myPurchases.forEach(p => {
+            let c = allCourses.find(x => x.id === p.courseId);
+            if(c) {
+                html += `
+                    <div class="note-card" style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <strong style="color:var(--text-dark);">${c.title}</strong><br>
+                            <span style="font-size:0.8rem; color:${p.status === 'approved' ? 'var(--success)' : 'var(--primary)'}">
+                                Status: ${p.status === 'approved' ? '✅ Approved' : '⏳ Pending'}
+                            </span><br>
+                            <span style="font-size:0.75rem; color:var(--text-muted);">UTR: ${p.utr}</span>
+                        </div>
+                        ${p.status === 'approved' ? `<button class="btn" style="width:auto; padding:6px 12px; font-size:0.85rem;" onclick="watchVideo('${c.video}')">Play</button>` : ''}
+                    </div>
+                `;
+            }
+        });
+        
+        if(html === '') html = '<p style="color:var(--text-muted); font-size: 0.9rem; text-align: center;">No courses purchased.</p>';
+        document.getElementById('my-purchased-list').innerHTML = html;
     }
-    function openNotifications() {
-        document.getElementById('bellDot').style.display = 'none'; // Mark seen
-        document.getElementById('noteModal').style.display = 'flex';
+
+    function watchVideo(link) {
+        if(link) window.open(link, '_blank');
+        else alert("Video link not provided yet.");
+    }
+
+    // Restore Purchase (If student changes phone)
+    function restoreCourse() {
+        let utr = document.getElementById('restoreUtr').value.trim();
+        let found = allRequests.find(r => r.utr === utr);
+        if(found) {
+            // Check if already in myPurchases
+            if(!myPurchases.find(p => p.utr === utr)) {
+                myPurchases.push(found);
+                localStorage.setItem('m2_purchases', JSON.stringify(myPurchases));
+            }
+            showToast("Course Restored!");
+            loadMyCourses();
+            document.querySelectorAll('.p-tab')[0].click(); // Go to My Courses
+        } else {
+            showToast("UTR not found. Check again.");
+        }
     }
 
     // ADMIN FUNCTIONS
@@ -431,35 +470,37 @@
         location.reload();
     }
 
-    async function addNewCourse() {
+    function addNewCourse() {
         let t = document.getElementById('adminCName').value;
-        let c = document.getElementById('adminCat').value || 'Blouse';
+        let c = document.getElementById('adminCat').value || 'Tailoring';
+        let i = document.getElementById('adminCImg').value || "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800";
+        let v = document.getElementById('adminCVideo').value;
         let p = document.getElementById('adminCPrice').value;
         let o = document.getElementById('adminCOldPrice').value;
 
-        if(!t || !p) { showToast("Title and Selling Price are required!"); return; }
+        if(!t || !p || !v) { showToast("Title, Price and Video Link are required!"); return; }
 
-        await sb.from("courses").insert({
-            title: t,
-            category: c,
-            price: parseInt(p),
-            old_price: o ? parseInt(o) : null
-        });
+        let newCourse = {
+            id: Date.now(), title: t, category: c, img: i, video: v, price: parseInt(p), old_price: o ? parseInt(o) : null
+        };
+        
+        allCourses.unshift(newCourse);
+        localStorage.setItem('m2_all_courses', JSON.stringify(allCourses));
 
         showToast("Course Published Successfully!");
         document.querySelectorAll('.admin-panel input').forEach(inpt => inpt.value = '');
-        fetchCourses();
+        filterCourses('All');
     }
 
-    async function loadPendingRequests() {
-        const { data } = await sb.from("payment_requests").select("*, courses(title)").eq("status", "pending");
+    function loadPendingRequests() {
+        let pending = allRequests.filter(r => r.status === "pending");
         let html = '';
-        if(data && data.length > 0) {
-            data.forEach(req => {
-                let cTitle = req.courses ? req.courses.title : 'Unknown Course';
+        if(pending.length > 0) {
+            pending.forEach(req => {
+                let c = allCourses.find(x => x.id === req.courseId);
                 html += `
                     <div class="note-card">
-                        <strong>${cTitle}</strong><br>
+                        <strong>${c ? c.title : 'Course'}</strong><br>
                         UTR: <span style="color:var(--primary);">${req.utr}</span>
                         <div style="display:flex; gap:10px; margin-top:10px;">
                             <button class="btn" style="padding:6px; font-size:0.85rem;" onclick="approvePay(${req.id})">Approve</button>
@@ -472,10 +513,23 @@
         document.getElementById('adminUtrList').innerHTML = html;
     }
 
-    async function approvePay(id) {
-        await sb.from("payment_requests").update({status: "approved"}).eq("id", id);
+    function approvePay(reqId) {
+        // Update in Global Requests
+        let r = allRequests.find(x => x.id === reqId);
+        if(r) r.status = "approved";
+        localStorage.setItem('m2_all_requests', JSON.stringify(allRequests));
+
+        // Update in Local Purchases (if admin is testing on same device)
+        let lp = myPurchases.find(x => x.id === reqId);
+        if(lp) {
+            lp.status = "approved";
+            localStorage.setItem('m2_purchases', JSON.stringify(myPurchases));
+        }
+
         showToast("Payment Approved!");
         loadPendingRequests();
+        loadMyCourses();
+        filterCourses('All'); // Refresh store buttons
     }
 
     init();
