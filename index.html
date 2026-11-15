@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ta"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#B3181E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<title>M2 Stitches</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500;700&family=Hind+Madurai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#B3181E;--dark:#7E0F13;--bg:#FFF8EF;--card:#fff;--text:#241512;--muted:#8a7268;--line:#ECE0CC;--ok:#27ae60}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Hind Madurai',sans-serif;color:var(--text);background:var(--bg);padding-bottom:74px;overflow-x:hidden}
+h1,h2,h3{font-family:'Baloo Thambi 2',sans-serif}
+button{font:inherit;cursor:pointer}
+header{background:var(--primary);padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px));display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.hl{display:flex;align-items:center;gap:12px}
+.hl img{width:40px;height:40px;border-radius:50%;border:1.5px solid #fff;object-fit:cover}
+.brand{font:700 1.3rem 'Baloo Thambi 2',sans-serif}
+.bell{font-size:1.4rem;position:relative;cursor:pointer}
+.bd{position:absolute;top:0;right:-2px;background:#f1c40f;color:#000;min-width:15px;height:15px;border-radius:8px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.app{max-width:600px;margin:0 auto;min-height:100vh}
+.sec{padding:15px;animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.search{background:var(--card);padding:10px 15px;border-radius:8px;display:flex;align-items:center;gap:10px;border:1px solid var(--line);margin-bottom:18px}
+.search input{border:0;outline:0;width:100%;font:inherit;background:transparent}
+.search svg{width:20px;height:20px;fill:var(--muted);flex:none}
+.fb{display:flex;gap:15px;margin-bottom:22px}
+.bc{flex:1;padding:20px 15px;border-radius:12px;color:#fff;cursor:pointer;text-decoration:none;display:block;box-shadow:0 6px 16px rgba(126,15,19,.15)}
+.bl{background:linear-gradient(135deg,#7E0F13,#B3181E)}.br{background:linear-gradient(135deg,#27ae60,#2ecc71)}
+.bc h3{font-size:1.1rem;line-height:1.35}.bc span{font-size:1.3rem;font-weight:700;display:block;margin-top:14px}
+.hd{font-size:1.15rem;color:var(--dark);margin:6px 0 8px}
+.soc{display:flex;gap:10px;margin:18px 0}
+.soc a{flex:1;text-align:center;padding:10px;border-radius:8px;font-weight:700;text-decoration:none;font-size:.9rem}
+.yt{background:#ffebee;color:#c0392b;border:1px solid #c0392b}.ig{background:#fdf2e9;color:#d35400;border:1px solid #d35400}
+.pills{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;margin-bottom:10px;scrollbar-width:none}
+.pill{padding:8px 16px;background:var(--card);border:1px solid var(--line);border-radius:20px;font-size:.85rem;font-weight:600;color:var(--muted);white-space:nowrap;cursor:pointer}
+.pill.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.cc{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.ci{width:120px;height:90px;border-radius:8px;object-fit:cover;flex:none;background:#FBF1DC}
+.cf{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.ct{font-size:1rem;font-weight:600;line-height:1.3;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pn{font-size:1.1rem;font-weight:700}.po{font-size:.8rem;color:var(--muted);text-decoration:line-through;margin-left:6px}.pf{font-size:.8rem;color:var(--primary);font-weight:700;margin-left:6px}
+.st{display:inline-block;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:6px;margin-top:4px;background:var(--primary);color:#fff;align-self:flex-start}
+.st.g{background:var(--ok)}.st.w{background:#fff;color:var(--primary);border:1px solid var(--primary)}
+.btn{display:block;width:100%;padding:12px;border-radius:8px;font:700 1rem 'Baloo Thambi 2',sans-serif;background:var(--primary);color:#fff;border:0;text-align:center;text-decoration:none;margin-bottom:10px}
+.btn.o{background:transparent;border:1px solid var(--primary);color:var(--primary)}
+.btn.s{width:auto;padding:6px 14px;font-size:.85rem;margin:0}
+.inp{width:100%;padding:12px;margin-bottom:12px;border:1px solid var(--line);border-radius:8px;font:inherit;outline:0;background:#fff;color:var(--text)}
+.inp:focus{border-color:var(--primary)}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--primary);border-radius:8px;padding:12px;margin-bottom:10px;font-size:.9rem}
+.ph{text-align:center;padding:20px 0;border-bottom:1px solid var(--line);background:var(--card);margin:-15px -15px 12px}
+.pt{display:flex;border-bottom:1px solid var(--line);background:var(--card);margin:0 -15px 16px}
+.ptb{padding:12px 20px;font-size:.85rem;font-weight:700;color:var(--muted);cursor:pointer;text-transform:uppercase}
+.ptb.on{color:var(--primary);border-bottom:3px solid var(--primary)}
+.adm{background:#fff;padding:16px;border-radius:12px;border:2px dashed var(--primary);margin-bottom:16px}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:flex-end;justify-content:center}
+.modal.show{display:flex}
+.mb{background:var(--bg);width:100%;max-width:600px;padding:24px;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));border-radius:20px 20px 0 0;max-height:90vh;overflow-y:auto;position:relative}
+.mb h2{color:var(--primary);margin-bottom:6px}
+.x{position:absolute;top:12px;right:18px;font-size:1.8rem;cursor:pointer;color:var(--muted);font-weight:700}
+.qr{border:2px dashed var(--primary);border-radius:12px;padding:14px;text-align:center;margin:12px 0;background:#fff}
+.qr img{max-width:210px;width:100%}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:600px;background:#fff;display:flex;justify-content:space-around;padding:8px 0;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);z-index:100}
+.ni{display:flex;flex-direction:column;align-items:center;color:var(--muted);font-size:.75rem;font-weight:600;cursor:pointer;width:25%}
+.ni svg{width:22px;height:22px;fill:currentColor;margin-bottom:3px}.ni.on{color:var(--primary)}
+#toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;padding:10px 20px;border-radius:30px;font-size:.9rem;z-index:300;display:none;max-width:90%;text-align:center}
+</style></head><body>
+<div class="app">
+<header><div class="hl"><img src="icon-192.png" alt=""><span class="brand">M2 Stitches</span></div>
+<div class="bell" onclick="openNotes()">&#128276;<span class="bd" id="bd" hidden>0</span></div></header>
+<main id="view" class="sec"></main>
+<nav id="nav">
+<div class="ni" data-t="home" onclick="go('home')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</div>
+<div class="ni" data-t="store" onclick="go('store')"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm2-4h12v2H6zm14 8H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-6 9l-4-2.25v4.5L14 19z"/></svg>Store</div>
+<div class="ni" data-t="chats" onclick="go('chats')"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>Chats</div>
+<div class="ni" data-t="profile" onclick="go('profile')"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Profile</div>
+</nav>
+<div class="modal" id="md"><div class="mb" id="mb"></div></div>
+</div>
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+var SB_URL="https://ykwfhtsphqyrscojclhk.supabase.co",SB_KEY="sb_publishable_4w_bwrUQOBY60Zauc2pDiw_ommX-WQD";
+var UPI="rooba25905-1@okicici";
+var AUTO_UNLOCK=false; /* false = you approve each payment (safe). true = video opens right after UTR (needs the optional SQL) */
+var IG="https://www.instagram.com/m2__stiches__",YT="https://www.youtube.com/@M2stiches";
+var sb=supabase.createClient(SB_URL,SB_KEY);
+var S={tab:"home",ptab:"mine",user:null,admin:false,courses:[],pays:[],notes:[],reqs:[],dq:[],ans:[],names:{},q:"",cat:"All",pend:null,edit:null};
+try{S.courses=JSON.parse(localStorage.getItem("m2c")||"[]")}catch(e){}
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},3200)}
+function cById(id){return S.courses.filter(function(c){return c.id==id})[0]}
+function stat(id){var r=S.pays.filter(function(p){return p.course_id==id});if(r.some(function(p){return p.status=="approved"}))return"ok";if(r.some(function(p){return p.status=="pending"}))return"wait";return""}
+function im(u){if(!u)return"";return /^https?:/.test(u)?u:"images/"+u}
+function go(t){S.tab=t;render();window.scrollTo(0,0)}
+function modal(h){$("mb").innerHTML='<div class="x" onclick="closeM()">&times;</div>'+h;$("md").classList.add("show")}
+function closeM(){$("md").classList.remove("show")}
+$("md").onclick=function(e){if(e.target==this)closeM()};
+function seen(n){try{if(n==null)return+localStorage.getItem("m2seen")||0;localStorage.setItem("m2seen",n)}catch(e){return 0}}
+document.addEventListener("visibilitychange",function(){var u=$("utr");if(!document.hidden&&u)u.focus()});
+
+async function load(){
+var r=await Promise.all([sb.auth.getSession(),sb.from("courses").select("*").order("id")]);
+S.user=r[0].data.session?r[0].data.session.user:null;
+if(r[1].data){S.courses=r[1].data;try{localStorage.setItem("m2c",JSON.stringify(S.courses))}catch(e){}}
+render();
+if(!S.user){S.admin=false;S.pays=[];S.notes=[];render();return}
+var u=S.user.id;
+var x=await Promise.all([sb.from("profiles").select("is_admin,name").eq("id",u).maybeSingle(),sb.from("payment_requests").select("*").eq("user_id",u),sb.from("notifications").select("*").order("created_at",{ascending:false}),sb.from("doubts").select("*").eq("user_id",u).not("answer","is",null).order("id",{ascending:false})]);
+S.admin=!!(x[0].data&&x[0].data.is_admin);S.pname=x[0].data&&x[0].data.name;S.pays=x[1].data||[];S.notes=x[2].data||[];S.ans=x[3].data||[];
+if(S.admin){S.reqs=(await sb.from("payment_requests").select("*").eq("status","pending").order("id")).data||[];
+S.dq=(await sb.from("doubts").select("*").is("answer",null).order("id")).data||[];var ids=S.reqs.concat(S.dq).map(function(q){return q.user_id});S.names={};
+if(ids.length){((await sb.from("profiles").select("id,name").in("id",ids)).data||[]).forEach(function(p){S.names[p.id]=p.name})}}
+render()}
+
+function row(c){var s=stat(c.id),off=c.old_price&&c.old_price>c.price?Math.round((1-c.price/c.old_price)*100):0;
+return `<div class="cc" onclick="openC(${c.id})"><img class="ci" loading="lazy" src="${esc(im(c.image_url))}" alt="" onerror="this.style.visibility='hidden'"><div class="cf"><div><h3 class="ct">${esc(c.title)}</h3><span class="pn">&#8377;${c.price}</span>${off?`<span class="po">&#8377;${c.old_price}</span><span class="pf">${off}% OFF</span>`:""}</div>${s=="ok"?'<span class="st g">&#9654; Watch</span>':s=="wait"?'<span class="st w">Waiting for approval</span>':'<span class="st">Buy now</span>'}</div></div>`}
+function listH(){var q=S.q.toLowerCase();var l=S.courses.filter(function(c){return(S.cat=="All"||c.category==S.cat)&&c.title.toLowerCase().indexOf(q)>-1});return l.length?l.map(row).join(""):'<p style="text-align:center;color:var(--muted);margin-top:20px">No courses found.</p>'}
+function setCat(i){S.cat=cats()[i];render()}
+function cats(){var a=["All"];S.courses.forEach(function(c){if(c.category&&a.indexOf(c.category)<0)a.push(c.category)});return a}
+
+function render(){
+var h="";
+if(S.tab=="home")h=`<div class="search"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input placeholder="Search for courses..." onkeydown="if(event.key=='Enter'){S.q=this.value;go('store')}"></div>
+<div class="fb"><a class="bc bl" target="_blank" rel="noopener" href="${YT}/live"><h3>Live<br>Schedule</h3><span>&rarr;</span></a><div class="bc br" onclick="S.q='';S.cat='All';go('store')"><h3>Recorded<br>Courses</h3><span>&rarr;</span></div></div>
+<h3 class="hd">Popular courses</h3>${S.courses.length?S.courses.slice(0,3).map(row).join(""):'<p style="color:var(--muted)">Loading courses…</p>'}
+<div class="soc"><a class="yt" target="_blank" rel="noopener" href="${YT}">&#128250; YouTube</a><a class="ig" target="_blank" rel="noopener" href="${IG}">&#128248; Instagram</a></div>`;
+if(S.tab=="store")h=`<div class="pills">${cats().map(function(c,i){return `<div class="pill ${S.cat==c?"on":""}" onclick="setCat(${i})">${esc(c=="All"?"All Courses":c)}</div>`}).join("")}</div><div class="search"><input placeholder="Search for courses..." value="${esc(S.q)}" oninput="S.q=this.value;$('list').innerHTML=listH()"></div><div id="list">${listH()}</div>`;
+if(S.tab=="chats")h=`<h2 style="text-align:center;margin-top:50px;color:var(--dark)">Study group</h2><p style="text-align:center;color:var(--muted);margin:10px 0 20px">Study group is coming soon. Follow us for updates.</p><a class="btn" style="max-width:240px;margin:0 auto" target="_blank" rel="noopener" href="${IG}">Open Instagram</a>`;
+if(S.tab=="profile")h=profH();
+$("view").innerHTML=h;
+document.querySelectorAll(".ni").forEach(function(n){n.classList.toggle("on",n.dataset.t==S.tab)});
+var un=Math.max(0,S.notes.length+S.ans.length-seen());$("bd").hidden=!un;$("bd").textContent=un}
+
+function profH(){
+if(!S.user)return '<div class="ph"><h3>Student Account</h3><p style="font-size:.85rem;color:var(--muted)">Log in to buy courses and watch videos</p></div><button class="btn" onclick="showAuth()">Log in / Create account</button>';
+var h=`<div class="ph"><h3>${esc(S.pname||"Student")}</h3><p style="font-size:.85rem;color:var(--muted)">${esc(S.user.email)}</p></div><div class="pt"><div class="ptb ${S.ptab=="mine"?"on":""}" onclick="S.ptab='mine';render()">My Courses</div>${S.admin?`<div class="ptb ${S.ptab=="admin"?"on":""}" onclick="S.ptab='admin';render()">&#11088; Admin${S.reqs.length+S.dq.length?" ("+(S.reqs.length+S.dq.length)+")":""}</div>`:""}</div>`;
+if(S.ptab=="mine"||!S.admin){var m=S.courses.filter(function(c){return stat(c.id)});h+=(m.map(row).join("")||'<p style="color:var(--muted);text-align:center;margin:20px 0">You have no courses yet.</p>')+'<button class="btn o" style="margin-top:20px" onclick="logout()">Log out</button>';return h}
+var c=cById(S.edit)||{};
+h+='<div class="adm"><h3 style="color:var(--primary);margin-bottom:10px">Payment requests</h3>'+(S.reqs.map(function(r){var k=cById(r.course_id)||{title:"Course",price:0};return `<div class="note"><b>${esc(k.title)}</b> &middot; &#8377;${k.price}<br>${esc(S.names[r.user_id]||"Student")} &middot; UTR: ${esc(r.utr)}<div class="row" style="margin-top:8px"><button class="btn s" onclick="dec(${r.id},1)">Approve</button><button class="btn s o" onclick="dec(${r.id},0)">Reject</button></div></div>`}).join("")||'<p style="font-size:.85rem;color:var(--muted)">No pending requests.</p>')+'</div>';
+h+=doubtsAdmin();
+h+=`<div class="adm"><h3 style="color:var(--primary);margin-bottom:10px">Manage courses</h3>${S.courses.map(function(k){return `<div class="mrow"><span>${esc(k.title)}</span><span style="white-space:nowrap"><button class="btn s" onclick="editC(${k.id})">Edit</button> <button class="btn s o" onclick="delC(${k.id})">Delete</button></span></div>`}).join("")||'<p style="font-size:.85rem;color:var(--muted)">No courses yet.</p>'}</div>
+<div class="adm"><h3 style="color:var(--primary);margin-bottom:12px">${S.edit?"Edit course":"Add new course"}</h3>
+<input class="inp" id="a1" placeholder="Course title" value="${esc(c.title||"")}"><input class="inp" id="a2" placeholder="Category (Blouse / Tailoring / Chudithar)" value="${esc(c.category||"")}"><input class="inp" id="a3" placeholder="Image file name (blouse.jpg) or image link" value="${esc(c.image_url||"")}"><textarea class="inp" id="a4" rows="2" placeholder="Short description">${esc(c.description||"")}</textarea><div class="row"><input class="inp" id="a5" type="number" placeholder="Price" value="${c.price||""}"><input class="inp" id="a6" type="number" placeholder="Old price" value="${c.old_price||""}"></div>
+<button class="btn" onclick="saveC()">${S.edit?"Save changes":"Publish course"}</button>${S.edit?'<button class="btn o" onclick="S.edit=null;render()">Cancel</button>':""}</div>
+<div class="adm"><h3 style="color:var(--primary);margin-bottom:12px">Add a video</h3><select class="inp" id="v1">${S.courses.map(function(k){return `<option value="${k.id}">${esc(k.title)}</option>`}).join("")}</select><input class="inp" id="v2" placeholder="Video title"><input class="inp" id="v3" placeholder="YouTube unlisted link"><button class="btn" onclick="addV()">Add video</button></div>
+<div class="adm"><h3 style="color:var(--primary);margin-bottom:12px">Send notification</h3><textarea class="inp" id="n1" rows="2" placeholder="Example: Live class today at 8 PM"></textarea><button class="btn" onclick="sendN()">Send to all students</button></div><button class="btn o" onclick="logout()">Log out</button>`;
+return h}
+
+function openNotes(){seen(S.notes.length+S.ans.length);var a=S.ans.map(function(d){return '<div class="note"><b>Answer to your doubt</b><br>'+esc(d.question)+'<div style="margin-top:6px;color:var(--ok)">'+esc(d.answer)+'</div></div>'}).join("");modal('<h2>Notifications</h2>'+a+(S.notes.map(function(n){return '<div class="note">'+esc(n.message)+'</div>'}).join("")||(a?"":'<div class="note">Welcome to M2 Stitches! Learn professional tailoring easily.</div>')));render()}
+function showAuth(msg){modal('<h2>Log in</h2><p style="color:var(--muted);margin-bottom:12px;font-size:.9rem">'+esc(msg||"Log in or create an account.")+'</p><input class="inp" id="nm" placeholder="Name (for new accounts)"><input class="inp" id="em" type="email" placeholder="Email"><input class="inp" id="pw" type="password" placeholder="Password (6 or more characters)"><button class="btn" onclick="auth(\'in\')">Log in</button><button class="btn o" onclick="auth(\'up\')">Create account</button>')}
+async function auth(mode){var e=$("em").value.trim(),p=$("pw").value,n=$("nm").value.trim(),r;
+if(!e||p.length<6){toast("Enter your email and a password of 6 or more characters");return}
+if(mode=="up")r=await sb.auth.signUp({email:e,password:p,options:{data:{name:n}}});else r=await sb.auth.signInWithPassword({email:e,password:p});
+if(r.error){toast(r.error.message);return}
+if(mode=="up"&&!r.data.session){toast("Account created. Check your email to confirm, then log in.");return}
+closeM();await load();if(S.pend){var id=S.pend;S.pend=null;openC(id)}}
+async function logout(){await sb.auth.signOut();S.user=null;S.admin=false;S.pays=[];S.notes=[];S.reqs=[];S.ans=[];S.dq=[];S.tab="home";render()}
+
+async function openC(id){var c=cById(id),s=stat(id);
+var hd=(c.image_url?`<img src="${esc(im(c.image_url))}" alt="" style="width:100%;border-radius:12px;margin-bottom:10px" onerror="this.remove()">`:"")+`<h2>${esc(c.title)}</h2><p style="color:var(--muted);margin-bottom:10px">${esc(c.description||"")}</p>`;
+if(s=="ok"){var vs=(await sb.from("course_videos").select("*").eq("course_id",id).order("position").order("id")).data||[];
+var ds=(await sb.from("doubts").select("*").eq("course_id",id).order("id",{ascending:false})).data||[];
+modal(hd+(vs.map(function(x){return `<a class="btn" style="background:var(--ok)" target="_blank" rel="noopener" href="${esc(x.video_url)}">&#9654; ${esc(x.title)}</a>`}).join("")||'<p style="color:var(--muted)">Videos will be added soon.</p>')+doubtsH(id,ds));return}
+modal(hd+`<p style="margin-bottom:12px"><span class="pn">&#8377;${c.price}</span>${c.old_price?`<span class="po">&#8377;${c.old_price}</span>`:""}</p>`+(s=="wait"?'<div class="note">Your payment is waiting for approval.</div>':`<button class="btn" onclick="buy(${id})">Buy now</button>`))}
+function buy(id){if(!S.user){S.pend=id;showAuth("Log in to buy this course.");return}payC(id)}
+function payC(id){var c=cById(id);var l="upi://pay?pa="+encodeURIComponent(UPI)+"&pn="+encodeURIComponent("M2 Stitches")+"&am="+c.price+"&cu=INR&tn="+encodeURIComponent("Course "+c.id);
+modal(`<h2>Pay &#8377;${c.price}</h2><p style="color:var(--muted);font-size:.9rem">1. Tap the button. GPay or your UPI app opens with the amount filled in.</p><a class="btn" style="margin-top:10px" href="${l}">Pay &#8377;${c.price} with GPay / UPI</a><p style="color:var(--muted);font-size:.9rem">2. After paying, come back and enter the 12-digit UTR (UPI transaction ID).</p><input class="inp" style="margin-top:8px" id="utr" inputmode="numeric" maxlength="12" placeholder="12-digit UTR number"><button class="btn" style="background:var(--ok)" onclick="sendR(${id})">I have paid &ndash; send</button><details><summary style="color:var(--muted);font-size:.9rem">Pay by scanning a QR code instead</summary><div class="qr"><img src="qr.png" alt="" onerror="this.replaceWith(document.createTextNode('QR code not added yet'))"><br>UPI ID: ${esc(UPI)}</div></details>`)}
+async function sendR(id){var u=$("utr").value.trim();if(!/^\d{12}$/.test(u)){toast("Enter the 12-digit UTR number");return}
+var r=await sb.from("payment_requests").insert({course_id:id,utr:u,status:AUTO_UNLOCK?"approved":"pending"});
+if(r.error){toast(/duplicate|unique/i.test(r.error.message)?"This UTR was already used":r.error.message);return}
+closeM();await load();S.ptab="mine";go("profile");toast(AUTO_UNLOCK?"Payment received. Your course is open.":"Request sent. You will get access after approval.")}
+function doubtsH(id,ds){var me=S.user.id;return '<h3 style="margin:18px 0 6px;color:var(--primary)">Ask your doubt</h3><textarea class="inp" id="dq" rows="2" placeholder="Type your doubt here..."></textarea><button class="btn" onclick="askD('+id+')">Ask doubt</button>'+ds.map(function(d){return '<div class="note"><b>'+(d.user_id==me?"You":"Student")+':</b> '+esc(d.question)+(d.answer?'<div style="margin-top:6px;color:var(--ok)"><b>M2 Stitches:</b> '+esc(d.answer)+'</div>':'<div style="margin-top:4px;font-size:.8rem;color:var(--muted)">Waiting for answer</div>')+'</div>'}).join("")}
+function doubtsAdmin(){return '<div class="adm"><h3 style="color:var(--primary);margin-bottom:10px">Student doubts'+(S.dq.length?' ('+S.dq.length+')':'')+'</h3>'+(S.dq.map(function(d){var k=cById(d.course_id)||{title:"Course"};return '<div class="note"><b>'+esc(k.title)+'</b><br>'+esc(S.names[d.user_id]||"Student")+': '+esc(d.question)+'<textarea class="inp" id="ans'+d.id+'" rows="2" placeholder="Type your answer..." style="margin:8px 0"></textarea><button class="btn s" onclick="ansD('+d.id+')">Send answer</button></div>'}).join("")||'<p style="font-size:.85rem;color:var(--muted)">No new doubts.</p>')+'</div>'}
+async function askD(id){var q=$("dq").value.trim();if(q.length<3){toast("Type your doubt first");return}var r=await sb.from("doubts").insert({course_id:id,question:q});if(r.error){toast(/relation|exist/.test(r.error.message)?"Doubts are not set up yet":r.error.message);return}toast("Doubt sent. The answer will come here.");openC(id)}
+async function ansD(id){var t=$("ans"+id).value.trim();if(!t){toast("Type the answer first");return}var r=await sb.from("doubts").update({answer:t,answered_at:new Date().toISOString()}).eq("id",id);if(r.error){toast(r.error.message);return}toast("Answer sent");load()}
+async function dec(id,ok){var r=await sb.from("payment_requests").update({status:ok?"approved":"rejected"}).eq("id",id);if(r.error){toast(r.error.message);return}toast(ok?"Approved. The course is open for the student.":"Rejected");load()}
+function editC(id){S.edit=id;render();window.scrollTo(0,0)}
+async function delC(id){if(!confirm("Delete this course and its videos?"))return;var r=await sb.from("courses").delete().eq("id",id);if(r.error){toast(r.error.message);return}toast("Course deleted");S.edit=null;load()}
+async function saveC(){var t=$("a1").value.trim(),p=+$("a5").value;if(!t||!p){toast("Enter a course title and price");return}
+var d={title:t,category:$("a2").value.trim()||null,image_url:$("a3").value.trim()||null,description:$("a4").value.trim(),price:p,old_price:+$("a6").value||null};
+var r=S.edit?await sb.from("courses").update(d).eq("id",S.edit):await sb.from("courses").insert(d);
+if(r.error){toast(/category|image_url/.test(r.error.message)?"First run the new SQL in Supabase":r.error.message);return}
+toast(S.edit?"Course updated":"Course added");S.edit=null;load()}
+async function addV(){var t=$("v2").value.trim(),u=$("v3").value.trim(),c=$("v1").value;if(!c||!t||!u){toast("Choose a course and enter a title and link");return}
+var r=await sb.from("course_videos").insert({course_id:+c,title:t,video_url:u});if(r.error){toast(r.error.message);return}toast("Video added");$("v2").value="";$("v3").value=""}
+async function sendN(){var t=$("n1").value.trim();if(!t)return;var r=await sb.from("notifications").insert({message:t});if(r.error){toast(r.error.message);return}toast("Sent to all students");load()}
+render();load();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
+</script></body></html>
