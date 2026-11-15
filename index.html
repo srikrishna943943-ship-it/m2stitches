@@ -1,186 +1,517 @@
-<!doctype html>
-<html lang="ta"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#B3181E">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
-<title>M2 Stitches</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500;700&family=Hind+Madurai:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--red:#B3181E;--maroon:#7E0F13;--cream:#FFF8EF;--ink:#241512;--muted:#5A4A45;--line:#ECE0CC;--gold:#C0902A;--thumb:#FBF1DC;--sh:0 6px 18px rgba(126,15,19,.12)}
-*{box-sizing:border-box}
-html{scroll-padding-top:70px}
-body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.6 'Hind Madurai',system-ui,sans-serif;padding-bottom:86px;position:relative;min-height:100vh}
-body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(#e6d5bb 1.2px,transparent 1.2px) 0 0/20px 20px}
-body::after{content:"";position:fixed;inset:0;z-index:-1;background:url(images/bg.jpg) center/cover no-repeat;opacity:.09}
-h1,h2,h3,.bt{font-family:'Baloo Thambi 2',sans-serif;margin:0}
-button{font:inherit;cursor:pointer}
-a{color:inherit;text-decoration:none}
-.util{background:var(--maroon);color:#F6E9DC;font-size:.78rem;text-align:center;padding:6px 10px;padding-top:calc(6px + env(safe-area-inset-top,0px))}
-header{background:#fff;border-bottom:3px solid var(--red);position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.hi{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 16px}
-.hi svg{width:46px;height:46px;flex:none}
-.hi .t{flex:1;line-height:1.1}
-.bt{font-size:1.4rem;font-weight:700;color:var(--red);display:block}
-.bs{font-size:.66rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
-.ic{background:none;border:1px solid var(--line);border-radius:999px;font-size:18px;width:40px;height:40px;position:relative}
-.dot{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;border-radius:9px;font-size:11px;min-width:16px;line-height:16px;text-align:center}
-.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
-.hero{position:relative;overflow:hidden;border-radius:12px;margin-top:16px;background:linear-gradient(135deg,var(--maroon),var(--red));color:#fff;padding:30px 22px;box-shadow:var(--sh);min-height:190px}
-.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero .ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(126,15,19,.88),rgba(126,15,19,.25))}
-.hero .tx{position:relative}
-.hero h1{font-size:2rem;line-height:1.2;margin-bottom:6px}
-.hero p{margin:0 0 16px;opacity:.92}
-.btn{display:inline-block;background:var(--red);color:#fff;border:0;border-radius:999px;padding:10px 22px;font-weight:700;font-size:.92rem;text-align:center}
-.btn.w{background:#fff;color:var(--red)}
-.btn.o{background:#fff;color:var(--red);border:1.5px solid var(--red)}
-.btn.f{width:100%;display:block;margin-bottom:10px}
-.modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
-.mode{display:flex;flex-direction:column;justify-content:space-between;min-height:130px;border-radius:14px;padding:16px;color:#fff;box-shadow:var(--sh);font:700 1.15rem/1.35 'Baloo Thambi 2',sans-serif;cursor:pointer;border:0;text-align:left}
-.mode.live{background:linear-gradient(135deg,#7E0F13,#B3181E)}
-.mode.rec{background:linear-gradient(135deg,#27ae60,#2ecc71)}
-.mode span{font-size:1.8rem;line-height:1}
-.mode:active{transform:scale(.98)}
-.st{display:flex;align-items:center;gap:14px;margin:30px 0 16px}
-.st h2{font-size:1.4rem;color:var(--red);white-space:nowrap}
-.st i{flex:1;height:2px;background:var(--line)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .2s}
-.card:active{transform:scale(.99)}
-.thumb{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,var(--thumb),#f2dcc0);display:grid;place-items:center;font:700 56px 'Baloo Thambi 2',sans-serif;color:var(--red)}
-.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.cb{padding:14px 16px 18px}
-.tag{display:inline-block;background:var(--red);color:#fff;font-size:.7rem;font-weight:700;padding:3px 12px;border-radius:999px;margin-bottom:6px}
-.tag.g{background:var(--gold)}
-.cb h3{font-size:1.15rem;line-height:1.4;margin:2px 0 6px}
-.cb p{margin:0 0 10px;color:var(--muted);font-size:.92rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.pr b{font-size:1.2rem;color:var(--red)}.pr s{color:#8a7268;margin-left:8px;font-size:.9rem}.pr em{font-style:normal;color:var(--gold);font-weight:700;margin-left:8px;font-size:.85rem}
-.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--sh);margin-bottom:14px}
-.note{background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:.92rem}
-.muted{color:var(--muted)}
-input,textarea,select{width:100%;font:inherit;padding:11px 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);margin:0 0 10px}
-.row{display:flex;gap:10px}.row>*{flex:1}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:#fff;border-top:3px solid var(--red);padding-bottom:env(safe-area-inset-bottom,0px);z-index:25}
-nav button{flex:1;max-width:160px;background:none;border:0;padding:8px 0;color:var(--muted);font-size:.78rem;font-weight:600}
-nav button.on{color:var(--red)}
-nav i{display:block;font-style:normal;font-size:20px}
-#sheet{position:fixed;inset:0;background:rgba(36,21,18,.6);display:none;align-items:flex-end;justify-content:center;z-index:40}
-#sheet.show{display:flex}
-.sh{background:var(--cream);width:min(100%,520px);border-radius:20px 20px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom,0px));max-height:90%;overflow:auto}
-.sh h3{font-size:1.5rem;color:var(--red);margin-bottom:6px}
-.qr{border:1.5px dashed var(--red);border-radius:12px;padding:14px;text-align:center;color:var(--muted);margin:12px 0;background:#fff}
-.qr img{max-width:230px;width:100%}
-#toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;z-index:50;display:none;max-width:90%}
-</style></head><body>
-<div class="util">Follow us on Instagram &amp; YouTube</div>
-<header><div class="hi">
-<svg viewBox="0 0 64 64" aria-label="M2 Stitches"><circle cx="32" cy="32" r="30" fill="#B3181E"/><circle cx="32" cy="32" r="27" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M42 9 L25 33" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="41" cy="11" rx="1.4" ry="3" transform="rotate(35 41 11)" fill="#B3181E"/><path d="M41 10 C55 13 54 27 42 26 C31 25 36 18 27 24" fill="none" stroke="#F3C969" stroke-width="2" stroke-linecap="round"/><text x="32" y="53" text-anchor="middle" font-family="Baloo Thambi 2,serif" font-weight="700" font-size="17" fill="#fff">M2</text></svg>
-<div class="t"><span class="bt">M2 Stitches</span><span class="bs">Tailoring Academy</span></div>
-<button class="ic" id="bell" hidden aria-label="Notifications">&#128276;<span class="dot" id="dot" hidden></span></button>
-<button class="btn" id="lg" onclick="showAuth()">Log in</button>
-</div></header>
-<div class="wrap"><main id="view"></main></div>
-<nav id="nav"></nav>
-<div id="sheet"><div class="sh" id="sh"></div></div>
-<div id="toast"></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>M2 Stitches</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500;600;700;800&family=Hind+Madurai:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <style>
+        :root {
+            --primary: #B3181E;
+            --primary-dark: #7E0F13;
+            --bg-color: #FFF8EF;
+            --card-bg: #FFFFFF;
+            --text-dark: #241512;
+            --text-muted: #8a7268;
+            --card-border: #ECE0CC;
+            --success: #27ae60;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Hind Madurai', sans-serif; color: var(--text-dark); background-color: var(--bg-color); padding-bottom: 70px; overflow-x: hidden;}
+        h1, h2, h3 { font-family: 'Baloo Thambi 2', sans-serif; margin: 0; }
+
+        header { background: var(--primary); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .header-left img { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid white; object-fit: cover;}
+        .brand-text { font-size: 1.3rem; font-weight: 700; font-family: 'Baloo Thambi 2', sans-serif; }
+        .bell-icon { font-size: 1.4rem; position: relative; cursor: pointer;}
+        .bell-dot { position: absolute; top: 0px; right: 0px; background: #f1c40f; color: #000; width: 14px; height: 14px; border-radius: 50%; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;}
+
+        .app-container { max-width: 600px; margin: 0 auto; min-height: 100vh; background: var(--bg-color); }
+        .section { display: none; padding: 15px; animation: fadeIn 0.3s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .search-container { background: var(--card-bg); padding: 10px 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--card-border); margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
+        .search-container input { border: none; outline: none; width: 100%; font-size: 0.95rem; font-family: 'Hind Madurai', sans-serif; background: transparent;}
+        .search-container svg { width: 20px; height: 20px; fill: var(--text-muted); }
+
+        .filter-blocks { display: flex; gap: 15px; margin-bottom: 25px; }
+        .block-card { flex: 1; padding: 20px 15px; border-radius: 12px; color: white; position: relative; overflow: hidden; cursor:pointer;}
+        .block-live { background: linear-gradient(135deg, #7E0F13, #B3181E); }
+        .block-recorded { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        .block-card h3 { font-size: 1.1rem; margin-bottom: 5px; z-index: 2; position: relative;}
+        .block-card .arrow { font-size: 1.2rem; font-weight: bold; margin-top: 15px; display: block; }
+        .block-icon { position: absolute; right: -10px; bottom: -10px; opacity: 0.2; width: 80px; height: 80px; }
+
+        .social-row { display: flex; gap: 10px; margin-top: 15px; margin-bottom: 20px;}
+        .social-row a { flex: 1; text-align: center; padding: 10px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 0.9rem;}
+        .btn-yt { background: #ffebee; color: #c0392b; border: 1px solid #c0392b;}
+        .btn-ig { background: #fdf2e9; color: #d35400; border: 1px solid #d35400;}
+
+        .category-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: none; }
+        .category-scroll::-webkit-scrollbar { display: none; }
+        .cat-pill { padding: 8px 16px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; cursor: pointer; transition: 0.2s;}
+        .cat-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .course-card { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--card-border); }
+        .course-img { width: 120px; height: 90px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #FBF1DC;}
+        .course-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between;}
+        .course-tags { display: flex; gap: 5px; margin-bottom: 5px; flex-wrap: wrap;}
+        .c-tag { background: #f1f2f6; color: #576574; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase;}
+        .course-title { font-size: 1rem; color: var(--text-dark); font-weight: 600; line-height: 1.3; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
+        .course-price-row { display: flex; align-items: baseline; gap: 8px; }
+        .price-new { font-size: 1.1rem; color: var(--text-dark); font-weight: 700; }
+        .price-old { font-size: 0.8rem; color: var(--text-muted); text-decoration: line-through; }
+        .price-off { font-size: 0.8rem; color: var(--primary); font-weight: 700; }
+
+        .profile-header { text-align: center; padding: 20px 0; border-bottom: 1px solid var(--card-border); background: var(--card-bg); margin: -15px -15px 15px -15px;}
+        .profile-tabs { display: flex; border-bottom: 1px solid var(--card-border); overflow-x: auto; background: var(--card-bg); margin: 0 -15px 20px -15px; scrollbar-width: none;}
+        .profile-tabs::-webkit-scrollbar { display: none; }
+        .p-tab { padding: 12px 20px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; cursor: pointer; text-transform: uppercase;}
+        .p-tab.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
+        
+        .admin-panel { background: #fff; padding: 20px; border-radius: 12px; border: 2px dashed var(--primary); margin-top: 20px;}
+        .note-card { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--primary); border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 0.9rem;}
+
+        .input-box { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--card-border); border-radius: 8px; font-family: 'Hind Madurai', sans-serif; font-size: 0.95rem; outline: none;}
+        .input-box:focus { border-color: var(--primary); }
+        .btn { display: block; width: 100%; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 1rem; background: var(--primary); color: white; border: none; cursor: pointer; font-family: 'Baloo Thambi 2', sans-serif; text-align: center; text-decoration: none;}
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); margin-top: 10px;}
+        
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); z-index: 200; align-items: flex-end; justify-content: center; }
+        .modal-box { background: var(--bg-color); width: 100%; max-width: 600px; padding: 25px; border-radius: 20px 20px 0 0; position: relative; max-height: 90vh; overflow-y: auto;}
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); font-weight: bold;}
+        
+        .qr-box { border: 2px dashed var(--primary); border-radius: 12px; padding: 15px; text-align: center; margin: 15px 0; background: white; cursor: pointer; display: block; text-decoration: none;}
+        .qr-box img { max-width: 200px; width: 100%; border-radius: 8px; margin-bottom: 10px;}
+        .qr-box span { display: block; color: var(--primary); font-weight: bold; font-size: 0.9rem;}
+
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 600px; left: 50%; transform: translateX(-50%); background: var(--white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid var(--card-border); z-index: 100;}
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); font-size: 0.75rem; font-weight: 600; cursor: pointer; width: 25%;}
+        .nav-item svg { width: 22px; height: 22px; fill: currentColor; margin-bottom: 4px; }
+        .nav-item.active { color: var(--primary); }
+
+        #toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--text-dark); color: white; padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; z-index: 300; display: none; white-space: nowrap;}
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+
+    <header>
+        <div class="header-left">
+            <img src="icon-192.png" alt="Logo">
+            <span class="brand-text">M2 Stitches</span>
+        </div>
+        <div class="bell-icon" onclick="openNotifications()">
+            🔔<span class="bell-dot" id="bellDot" style="display:none;">0</span>
+        </div>
+    </header>
+
+    <!-- HOME TAB -->
+    <main id="home" class="section active">
+        <div class="search-container">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input type="text" id="searchInput" placeholder="Search for courses..." onkeyup="searchCourses()">
+        </div>
+
+        <div class="filter-blocks">
+            <div class="block-card block-live">
+                <h3>Live<br>Schedule</h3>
+                <span class="arrow">→</span>
+            </div>
+            <div class="block-card block-recorded" onclick="document.getElementById('nav-store').click()">
+                <h3>Recorded<br>Courses</h3>
+                <span class="arrow">→</span>
+            </div>
+        </div>
+
+        <h3 style="margin-bottom: 10px; font-size: 1.1rem; color: var(--primary-dark);">What our students say</h3>
+        <div style="background: #eafaf1; padding: 15px; border-radius: 10px; border-left: 4px solid var(--success); font-size: 0.9rem;">
+            "Beginner friendlya slowa nalla puriyara mathiri solli tharanga. Good teaching methods. Thank you." <br>
+            <strong style="margin-top: 10px; display: block; color: var(--primary-dark);">- M2 Student</strong>
+        </div>
+
+        <div class="social-row">
+            <a href="https://www.youtube.com/@M2stiches" target="_blank" class="btn-yt">📺 YouTube</a>
+            <a href="https://www.instagram.com/m2__stiches__" target="_blank" class="btn-ig">📸 Instagram</a>
+        </div>
+    </main>
+
+    <!-- STORE TAB -->
+    <main id="store" class="section">
+        <div class="category-scroll" id="catContainer">
+            <div class="cat-pill active" onclick="filterCourses('All')">All Courses</div>
+            <div class="cat-pill" onclick="filterCourses('Blouse')">Blouse</div>
+            <div class="cat-pill" onclick="filterCourses('Tailoring')">Tailoring</div>
+            <div class="cat-pill" onclick="filterCourses('Chudithar')">Chudithar</div>
+        </div>
+
+        <div id="course-list">
+            <p style="text-align:center; color:var(--text-muted);">Loading courses...</p>
+        </div>
+    </main>
+
+    <!-- CHATS TAB -->
+    <main id="chats" class="section">
+        <h2 style="text-align: center; margin-top: 50px; color: var(--primary-dark);">Community Chats</h2>
+        <p style="text-align: center; color: var(--text-muted); margin-top: 10px;">Purchase a course to join the study group.</p>
+        <button class="btn" style="width: 200px; margin: 20px auto;" onclick="document.getElementById('nav-store').click()">Go to Store</button>
+    </main>
+
+    <!-- PROFILE / ADMIN TAB -->
+    <main id="profile" class="section">
+        <div class="profile-header">
+            <h3 id="profile-name">Student Account</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" onclick="showAdminLogin()">Tap here for Owner Login</p>
+        </div>
+
+        <div class="profile-tabs">
+            <div class="p-tab active" onclick="switchProfileTab('p-courses', this)">My Courses</div>
+            <div class="p-tab" onclick="switchProfileTab('p-restore', this)">Restore Purchase</div>
+            <div class="p-tab" id="ownerTabBtn" style="display:none;" onclick="switchProfileTab('p-admin', this)">⭐ Admin</div>
+        </div>
+
+        <!-- My Courses (Purchased) -->
+        <div id="p-courses" class="p-content" style="padding-top: 10px;">
+            <div id="my-purchased-list">
+                <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-top:20px;">You don't have any purchased courses yet.</p>
+            </div>
+        </div>
+
+        <!-- Restore Purchase using UTR -->
+        <div id="p-restore" class="p-content" style="display:none;">
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom:15px;">பணம் செலுத்திய UTR எண்ணை உள்ளிட்டு உங்கள் வகுப்புகளைப் பார்க்கலாம்.</p>
+            <input type="text" id="restoreUtr" class="input-box" placeholder="Enter your paid UTR Number">
+            <button class="btn" onclick="restoreCourse()">Get My Courses</button>
+        </div>
+
+        <!-- OWNER / ADMIN PANEL -->
+        <div id="p-admin" class="p-content" style="display:none;">
+            <div class="admin-panel">
+                <h3 style="color: var(--primary); margin-bottom: 20px;">Add New Course</h3>
+                <input type="text" id="adminCName" class="input-box" placeholder="Course Title (ex: Blouse Class)">
+                <input type="text" id="adminCat" class="input-box" placeholder="Category (Blouse / Tailoring / Chudithar)">
+                <input type="text" id="adminCImg" class="input-box" placeholder="Thumbnail Image Link (URL)">
+                <input type="text" id="adminCVideo" class="input-box" placeholder="Video Link (YouTube Unlisted / Drive)">
+                <input type="number" id="adminCPrice" class="input-box" placeholder="Selling Price (₹)">
+                <input type="number" id="adminCOldPrice" class="input-box" placeholder="Original Price (₹)">
+                
+                <button class="btn" onclick="addNewCourse()">Publish Course</button>
+
+                <h3 style="color: var(--primary); margin: 30px 0 15px;">Recent Payments</h3>
+                <div id="adminUtrList"><p style="font-size:0.85rem; color:var(--text-muted);">No recent requests.</p></div>
+
+                <button class="btn btn-outline" style="margin-top:20px;" onclick="logoutAdmin()">Logout Admin</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" id="nav-home" onclick="switchTab('home', this)">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home
+        </div>
+        <div class="nav-item" id="nav-store" onclick="switchTab('store', this)">
+            <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm2-4h12v2H6zm14 8H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-6 9l-4-2.25v4.5L14 19z"/></svg>Store
+        </div>
+        <div class="nav-item" onclick="switchTab('chats', this)">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>Chats
+        </div>
+        <div class="nav-item" onclick="switchTab('profile', this)">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Profile
+        </div>
+    </nav>
+
+    <!-- QR PAYMENT MODAL (AUTO UNLOCK) -->
+    <div class="modal" id="qrModal">
+        <div class="modal-box">
+            <div class="close-btn" onclick="closeModal('qrModal')">×</div>
+            <h2 style="color: var(--primary); margin-bottom: 5px;" id="qrTitle">Pay ₹0</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">GPay / PhonePe -ல் பணம் செலுத்திய பின் UTR எண்ணை உள்ளிடவும். <strong>வீடியோ உடனே திறக்கும்!</strong></p>
+            
+            <a href="#" id="upiPayLink" class="qr-box">
+                <img src="qr.png" alt="Payment QR Code">
+                <span>🔗 Tap here to open GPay / PhonePe</span>
+            </a>
+            
+            <input type="text" id="utrInput" class="input-box" placeholder="Enter 12-digit UTR Number" inputmode="numeric">
+            <button class="btn" style="background: var(--success);" onclick="submitUTR()">Submit & Watch Video</button>
+        </div>
+    </div>
+
+    <!-- NOTIFICATIONS MODAL -->
+    <div class="modal" id="noteModal">
+        <div class="modal-box">
+            <div class="close-btn" onclick="closeModal('noteModal')">×</div>
+            <h2 style="color: var(--primary); margin-bottom: 15px;">Notifications</h2>
+            <div id="noteList">
+                <div class="note-card">Welcome to M2 Stitches! Learn professional tailoring easily.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-box" style="border-radius: 12px; margin: auto; max-width:320px;">
+            <div class="close-btn" style="top:5px; right:10px;" onclick="closeModal('adminLoginModal')">×</div>
+            <h2 style="color: var(--primary); margin-bottom: 15px;">Owner Login</h2>
+            <input type="password" id="adminPassword" class="input-box" placeholder="Enter Password">
+            <button class="btn" onclick="verifyAdmin()">Unlock Admin</button>
+        </div>
+    </div>
+
+</div>
+<div id="toast">Message</div>
+
 <script>
-var SB_URL="https://ykwfhtsphqyrscojclhk.supabase.co",SB_KEY="sb_publishable_4w_bwrUQOBY60Zauc2pDiw_ommX-WQD";
-var UPI="rooba25905-1@okicici";
-var IG="https://www.instagram.com/m2__stiches__",YT="https://www.youtube.com/@M2stiches";
-var sb=supabase.createClient(SB_URL,SB_KEY);
-var S={tab:"home",user:null,admin:false,courses:[],pays:[],notes:[],reqs:[],names:{},q:"",pend:null};
-try{S.courses=JSON.parse(localStorage.getItem("m2c")||"[]")}catch(e){}
-var $=function(i){return document.getElementById(i)};
-function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},3200)}
-function cById(id){return S.courses.filter(function(c){return c.id==id})[0]}
-function stat(id){var r=S.pays.filter(function(p){return p.course_id==id});if(r.some(function(p){return p.status=="approved"}))return"ok";if(r.some(function(p){return p.status=="pending"}))return"wait";return""}
-function im(u){if(!u)return"";return /^https?:/.test(u)?u:"images/"+u}
-function go(t){S.tab=t;render();window.scrollTo(0,0)}
-function sheet(h){$("sh").innerHTML=h;$("sheet").classList.add("show")}
-function closeS(){$("sheet").classList.remove("show")}
-$("sheet").onclick=function(e){if(e.target==this)closeS()};
-function seenGet(){try{return +localStorage.getItem("m2seen")||0}catch(e){return 0}}
-function seenSet(n){try{localStorage.setItem("m2seen",n)}catch(e){}}
+    /* YOUR UPI ID */
+    const MY_UPI_ID = "rooba25905-1@okicici"; 
 
-async function load(){
-var r=await Promise.all([sb.auth.getSession(),sb.from("courses").select("*").order("id")]);
-S.user=r[0].data.session?r[0].data.session.user:null;
-if(r[1].data){S.courses=r[1].data;try{localStorage.setItem("m2c",JSON.stringify(S.courses))}catch(e){}}
-render();
-if(!S.user){S.admin=false;S.pays=[];S.notes=[];render();return}
-var u=S.user.id;
-var x=await Promise.all([sb.from("profiles").select("is_admin").eq("id",u).maybeSingle(),sb.from("payment_requests").select("*").eq("user_id",u),sb.from("notifications").select("*").order("created_at",{ascending:false})]);
-S.admin=!!(x[0].data&&x[0].data.is_admin);S.pays=x[1].data||[];S.notes=x[2].data||[];
-if(S.admin){S.reqs=(await sb.from("payment_requests").select("*").eq("status","pending").order("id")).data||[];
-var ids=S.reqs.map(function(q){return q.user_id});S.names={};
-if(ids.length){((await sb.from("profiles").select("id,name").in("id",ids)).data||[]).forEach(function(p){S.names[p.id]=p.name})}}
-render()}
+    // Local DB
+    let isAdmin = localStorage.getItem('m2_admin') === 'true';
+    let myPurchases = JSON.parse(localStorage.getItem('m2_purchases')) || []; 
+    let currentPayCourseId = null;
+    let allCourses = JSON.parse(localStorage.getItem('m2_all_courses')) || [
+        { id: 1, title: "A-Z Blouse Cutting & Stitching", category: "Blouse", price: 999, old_price: 2000, img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800", video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", tags: ["VIDEOS"] },
+        { id: 2, title: "Chudithar Masterclass", category: "Chudithar", price: 799, old_price: 1500, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=800", video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", tags: ["FREE CONTENT"] }
+    ];
+    let allRequests = JSON.parse(localStorage.getItem('m2_all_requests')) || [];
 
-function cardH(c){var st=stat(c.id),off=c.old_price&&c.old_price>c.price?Math.round((1-c.price/c.old_price)*100):0;
-return '<div class="card" onclick="openC('+c.id+')"><div class="thumb">'+esc(c.title.charAt(0))+(c.image_url?'<img loading="lazy" src="'+esc(im(c.image_url))+'" alt="" onerror="this.remove()">':'')+'</div><div class="cb">'+(st=="ok"?'<span class="tag g">Purchased</span>':st=="wait"?'<span class="tag g">Waiting for approval</span>':'<span class="tag">Course</span>')+'<h3>'+esc(c.title)+'</h3><p>'+esc(c.description||"")+'</p><div class="pr"><b>&#8377;'+c.price+'</b>'+(c.old_price&&off?'<s>&#8377;'+c.old_price+'</s><em>'+off+'% OFF</em>':'')+'</div></div></div>'}
-function listH(){var q=S.q.toLowerCase();var l=S.courses.filter(function(c){return c.title.toLowerCase().indexOf(q)>-1});return l.length?'<div class="grid">'+l.map(cardH).join("")+'</div>':'<p class="muted">No courses found.</p>'}
+    async function init() {
+        if(isAdmin) {
+            document.getElementById('ownerTabBtn').style.display = 'block';
+            document.getElementById('profile-name').innerText = "M2 Stitches Owner";
+            loadPendingRequests();
+        }
+        filterCourses('All');
+        loadMyCourses();
+    }
 
-function render(){
-var v=$("view"),h="";
-$("bell").hidden=!S.user;$("lg").hidden=!!S.user;
-var un=Math.max(0,S.notes.length-seenGet());$("dot").hidden=!un;$("dot").textContent=un;
-if(S.tab=="home"){
-h='<div class="hero"><img src="images/banner.jpg" alt="" onerror="this.remove()"><div class="ov"></div><div class="tx"><h1>Learn tailoring at home</h1><p>வீட்டிலிருந்தே தையல் கற்றுக்கொள்ளுங்கள். Video classes, any time.</p><button class="btn w" onclick="go(\'store\')">Browse courses</button></div></div>'+
-'<div class="modes"><a class="mode live" target="_blank" rel="noopener" href="'+YT+'/live">Live<br>Schedule<span>&rarr;</span></a><button class="mode rec" onclick="go(\'store\')">Recorded<br>Courses<span>&rarr;</span></button></div>'+
-'<div class="st"><h2>Popular courses</h2><i></i></div>'+(S.courses.length?'<div class="grid">'+S.courses.slice(0,3).map(cardH).join("")+'</div>':'<p class="muted">Loading courses…</p>')+
-'<div class="st"><h2>Follow us</h2><i></i></div><div class="row"><a class="btn o" target="_blank" rel="noopener" href="'+YT+'">YouTube</a><a class="btn o" target="_blank" rel="noopener" href="'+IG+'">Instagram</a></div>'}
-if(S.tab=="store"){h='<div class="st"><h2>Courses</h2><i></i></div><input id="q" placeholder="Search for courses" value="'+esc(S.q)+'" oninput="S.q=this.value;$(\'list\').innerHTML=listH()"><div id="list">'+listH()+'</div>'}
-if(S.tab=="mine"){
-h='<div class="st"><h2>My courses</h2><i></i></div>';
-if(!S.user)h+='<div class="box"><p>Log in to see your courses.</p><button class="btn" onclick="showAuth()">Log in</button></div>';
-else{var m=S.courses.filter(function(c){return stat(c.id)});
-h+=(m.length?'<div class="grid">'+m.map(cardH).join("")+'</div>':'<div class="box"><p class="muted">You have no courses yet.</p><button class="btn" onclick="go(\'store\')">Go to Store</button></div>')+'<div class="st"><h2>Account</h2><i></i></div><button class="btn o f" onclick="logout()">Log out</button>'}}
-if(S.tab=="admin"&&S.admin){
-h='<div class="st"><h2>Payment requests</h2><i></i></div>'+(S.reqs.map(function(r){var c=cById(r.course_id)||{title:"Course",price:0};return '<div class="box"><b>'+esc(c.title)+'</b> &middot; &#8377;'+c.price+'<br>'+esc(S.names[r.user_id]||"Student")+' &middot; UTR: '+esc(r.utr)+'<div class="row" style="margin-top:10px"><button class="btn" onclick="dec('+r.id+',1)">Approve</button><button class="btn o" onclick="dec('+r.id+',0)">Reject</button></div></div>'}).join("")||'<p class="muted">No pending requests.</p>')+
-'<div class="st"><h2>Send notification</h2><i></i></div><div class="box"><textarea id="nt" rows="2" placeholder="Example: New blouse class is live!"></textarea><button class="btn f" onclick="sendN()">Send to all students</button></div>'+
-'<div class="st"><h2>Add a course</h2><i></i></div><div class="box"><input id="nn" placeholder="Course name"><textarea id="nd" rows="2" placeholder="Short description"></textarea><div class="row"><input id="np" type="number" placeholder="Price"><input id="no" type="number" placeholder="Old price"></div><input id="ni" placeholder="Image file name (example: blouse.jpg) or image link"><button class="btn f" onclick="addC()">Add course</button></div>'+
-'<div class="st"><h2>Add a video</h2><i></i></div><div class="box"><select id="vc">'+S.courses.map(function(c){return '<option value="'+c.id+'">'+esc(c.title)+'</option>'}).join("")+'</select><input id="vt" placeholder="Video title"><input id="vu" placeholder="YouTube unlisted link"><button class="btn f" onclick="addV()">Add video</button></div>'}
-v.innerHTML=h;
-var N=[["home","&#127968;","Home"],["store","&#128717;","Store"],["mine","&#127891;","My courses"]];if(S.admin)N.push(["admin","&#9881;","Owner"+(S.reqs.length?" ("+S.reqs.length+")":"")]);
-$("nav").innerHTML=N.map(function(n){return '<button class="'+(S.tab==n[0]?"on":"")+'" onclick="go(\''+n[0]+'\')"><i>'+n[1]+'</i>'+n[2]+'</button>'}).join("")}
+    function showToast(msg) {
+        let t = document.getElementById('toast');
+        t.innerText = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 3000);
+    }
 
-$("bell").onclick=function(){seenSet(S.notes.length);sheet('<h3>Notifications</h3>'+(S.notes.map(function(n){return '<div class="note">'+esc(n.message)+'</div>'}).join("")||'<p class="muted">No notifications yet.</p>')+'<button class="btn o f" onclick="closeS()">Close</button>');render()};
+    function switchTab(tabId, element) {
+        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        document.querySelectorAll('.bottom-nav .nav-item').forEach(nav => nav.classList.remove('active'));
+        element.classList.add('active');
+        window.scrollTo(0,0);
+    }
 
-function showAuth(msg){sheet('<h3>Log in</h3><p class="muted">'+esc(msg||"Log in or create an account.")+'</p><input id="nm" placeholder="Name (for new accounts)"><input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password (6 or more characters)"><button class="btn f" onclick="auth(\'in\')">Log in</button><button class="btn o f" onclick="auth(\'up\')">Create account</button>')}
-async function auth(mode){
-var e=$("em").value.trim(),p=$("pw").value,n=$("nm").value.trim(),r;
-if(!e||p.length<6){toast("Enter your email and a password of 6 or more characters");return}
-if(mode=="up")r=await sb.auth.signUp({email:e,password:p,options:{data:{name:n}}});else r=await sb.auth.signInWithPassword({email:e,password:p});
-if(r.error){toast(r.error.message);return}
-if(mode=="up"&&!r.data.session){toast("Account created. Check your email to confirm, then log in.");return}
-closeS();await load();if(S.pend){var id=S.pend;S.pend=null;openC(id)}}
-async function logout(){await sb.auth.signOut();S.user=null;S.admin=false;S.pays=[];S.notes=[];S.tab="home";render()}
+    function switchProfileTab(tabId, element) {
+        document.querySelectorAll('.p-content').forEach(sec => sec.style.display = 'none');
+        document.getElementById(tabId).style.display = 'block';
+        document.querySelectorAll('.p-tab').forEach(nav => nav.classList.remove('active'));
+        element.classList.add('active');
+    }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function openNotifications() { document.getElementById('noteModal').style.display = 'flex'; }
 
-async function openC(id){
-var c=cById(id),st=stat(id);
-var head=(c.image_url?'<img src="'+esc(im(c.image_url))+'" alt="" style="width:100%;border-radius:12px;margin-bottom:10px" onerror="this.remove()">':'')+'<h3>'+esc(c.title)+'</h3><p class="muted">'+esc(c.description||"")+'</p>';
-if(st=="ok"){
-var vs=(await sb.from("course_videos").select("*").eq("course_id",id).order("position").order("id")).data||[];
-sheet(head+(vs.map(function(x){return '<a class="btn f" target="_blank" rel="noopener" href="'+esc(x.video_url)+'">&#9654; '+esc(x.title)+'</a>'}).join("")||'<p class="muted">Videos will be added soon.</p>'));return}
-sheet(head+'<p class="pr"><b>&#8377;'+c.price+'</b>'+(c.old_price?'<s>&#8377;'+c.old_price+'</s>':'')+'</p>'+(st=="wait"?'<div class="note">Your payment request is waiting for approval.</div>':'<button class="btn f" onclick="buy('+id+')">Buy for &#8377;'+c.price+'</button>'))}
-function buy(id){if(!S.user){S.pend=id;showAuth("Log in to buy this course.");return}payC(id)}
-function payC(id){var c=cById(id);
-var link='upi://pay?pa='+encodeURIComponent(UPI)+'&pn='+encodeURIComponent("M2 Stitches")+'&am='+c.price+'&cu=INR&tn='+encodeURIComponent("Course "+c.id);
-sheet('<h3>Pay &#8377;'+c.price+'</h3><p class="muted">1. Tap the button. GPay (or your UPI app) opens with the amount already filled in.</p><a class="btn f" href="'+link+'">Pay &#8377;'+c.price+' with GPay / UPI</a><p class="muted">2. After paying, come back here and enter the UPI transaction ID (UTR) from your payment.</p><input id="utr" inputmode="numeric" placeholder="UTR number (12 digits)"><button class="btn f" onclick="sendR('+id+')">I have paid – send request</button><details><summary class="muted">Pay by scanning a QR code instead</summary><div class="qr"><img src="qr.png" alt="Payment QR" onerror="this.replaceWith(document.createTextNode(\'QR code not added yet\'))"><br>UPI ID: '+esc(UPI)+'</div></details>')}
-async function sendR(id){var u=$("utr").value.trim();if(u.length<6){toast("Enter the UTR number from your payment");return}
-var r=await sb.from("payment_requests").insert({course_id:id,utr:u});if(r.error){toast(r.error.message);return}
-closeS();toast("Request sent. You will get access after approval.");await load();go("mine")}
-async function dec(id,ok){var r=await sb.from("payment_requests").update({status:ok?"approved":"rejected"}).eq("id",id);if(r.error){toast(r.error.message);return}toast(ok?"Approved. The course is open for the student.":"Rejected");load()}
-async function sendN(){var t=$("nt").value.trim();if(!t)return;var r=await sb.from("notifications").insert({message:t});if(r.error){toast(r.error.message);return}toast("Sent to all students");load()}
-async function addC(){var n=$("nn").value.trim(),p=+$("np").value;if(!n||!p){toast("Enter a course name and price");return}
-var r=await sb.from("courses").insert({title:n,description:$("nd").value.trim(),price:p,old_price:+$("no").value||null,image_url:$("ni").value.trim()||null});
-if(r.error){toast(/image_url/.test(r.error.message)?"First run the image_url SQL in Supabase":r.error.message);return}toast("Course added");load()}
-async function addV(){var t=$("vt").value.trim(),u=$("vu").value.trim(),c=$("vc").value;if(!c||!t||!u){toast("Choose a course and enter a title and link");return}
-var r=await sb.from("course_videos").insert({course_id:+c,title:t,video_url:u});if(r.error){toast(r.error.message);return}toast("Video added");$("vt").value="";$("vu").value=""}
-render();load();
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
-</script></body></html>
+    // STORE
+    function filterCourses(cat) {
+        document.querySelectorAll('.cat-pill').forEach(p => {
+            if(p.innerText.includes(cat)) p.classList.add('active');
+            else p.classList.remove('active');
+        });
+        let filtered = cat === 'All' ? allCourses : allCourses.filter(c => c.category && c.category.toLowerCase().includes(cat.toLowerCase()));
+        renderStoreUI(filtered);
+    }
+
+    function searchCourses() {
+        let q = document.getElementById('searchInput').value.toLowerCase();
+        let filtered = allCourses.filter(c => c.title.toLowerCase().includes(q));
+        renderStoreUI(filtered);
+        document.getElementById('nav-store').click();
+    }
+
+    function renderStoreUI(filtered) {
+        let html = '';
+        if(filtered.length === 0) {
+            html = '<p style="text-align:center; color:var(--text-muted); margin-top:20px;">No courses found.</p>';
+        } else {
+            filtered.forEach(c => {
+                let offPercent = c.old_price ? Math.round(((c.old_price - c.price) / c.old_price) * 100) : 0;
+                let isPurchased = myPurchases.find(p => p.courseId === c.id && p.status === 'approved');
+                
+                html += `
+                    <div class="course-card">
+                        <img src="${c.img}" class="course-img">
+                        <div class="course-info">
+                            <h3 class="course-title">${c.title}</h3>
+                            <div class="course-price-row">
+                                <span class="price-new">₹ ${c.price}</span>
+                                ${c.old_price ? `<span class="price-old">₹ ${c.old_price}</span> <span class="price-off">${offPercent}% OFF</span>` : ''}
+                            </div>
+                            ${isPurchased ? 
+                                `<button class="btn" style="background:var(--success); padding: 6px; font-size:0.9rem;" onclick="watchVideo('${c.video}')">▶ Watch Video</button>` : 
+                                `<button class="btn" style="padding: 6px; font-size:0.9rem;" onclick="openBuyModal(${c.id}, '${c.title}', ${c.price})">Buy Now</button>`
+                            }
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        document.getElementById('course-list').innerHTML = html;
+    }
+
+    // BUY - AUTO TRIGGER GPAY & INSTANT UNLOCK
+    function openBuyModal(id, title, price) {
+        currentPayCourseId = id;
+        document.getElementById('qrTitle').innerText = `Pay ₹ ${price}`;
+        document.getElementById('utrInput').value = '';
+        
+        let upiString = `upi://pay?pa=${MY_UPI_ID}&pn=M2%20Stitches&am=${price}&cu=INR`;
+        document.getElementById('upiPayLink').href = upiString;
+
+        // Auto trigger Gpay (Will work if viewed on Mobile device)
+        window.location.href = upiString;
+
+        document.getElementById('qrModal').style.display = 'flex';
+    }
+
+    function submitUTR() {
+        let utr = document.getElementById('utrInput').value.trim();
+        if(utr.length < 6) { showToast("Enter a valid UTR number!"); return; }
+        
+        // AUTO APPROVE MAGIC HAPPENS HERE: status set to 'approved' directly
+        let req = { id: Date.now(), courseId: currentPayCourseId, utr: utr, status: "approved" }; 
+        allRequests.push(req);
+        localStorage.setItem('m2_all_requests', JSON.stringify(allRequests));
+
+        myPurchases.push(req);
+        localStorage.setItem('m2_purchases', JSON.stringify(myPurchases));
+
+        document.getElementById('qrModal').style.display = 'none';
+        showToast("Payment Successful! Video Unlocked.");
+        
+        // Auto open the video instantly
+        let c = allCourses.find(x => x.id === currentPayCourseId);
+        if(c && c.video) {
+            window.open(c.video, '_blank');
+        }
+
+        if(isAdmin) loadPendingRequests();
+        loadMyCourses();
+        filterCourses('All'); // Refresh buttons to show 'Watch Video'
+    }
+
+    // MY COURSES
+    function loadMyCourses() {
+        let html = '';
+        myPurchases.forEach(p => {
+            let c = allCourses.find(x => x.id === p.courseId);
+            if(c && p.status === 'approved') {
+                html += `
+                    <div class="note-card" style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <strong style="color:var(--text-dark);">${c.title}</strong><br>
+                            <span style="font-size:0.8rem; color:var(--success)">✅ Paid via UTR: ${p.utr}</span>
+                        </div>
+                        <button class="btn" style="width:auto; padding:6px 12px; font-size:0.85rem;" onclick="watchVideo('${c.video}')">Play</button>
+                    </div>
+                `;
+            }
+        });
+        
+        if(html === '') html = '<p style="color:var(--text-muted); font-size: 0.9rem; text-align: center;">No courses purchased.</p>';
+        document.getElementById('my-purchased-list').innerHTML = html;
+    }
+
+    function watchVideo(link) {
+        if(link) window.open(link, '_blank');
+        else alert("Video link not provided yet.");
+    }
+
+    // Restore Purchase
+    function restoreCourse() {
+        let utr = document.getElementById('restoreUtr').value.trim();
+        let found = allRequests.find(r => r.utr === utr && r.status === "approved");
+        if(found) {
+            if(!myPurchases.find(p => p.utr === utr)) {
+                myPurchases.push(found);
+                localStorage.setItem('m2_purchases', JSON.stringify(myPurchases));
+            }
+            showToast("Course Restored!");
+            loadMyCourses();
+            document.querySelectorAll('.p-tab')[0].click(); 
+            filterCourses('All');
+        } else {
+            showToast("UTR not found or not approved yet.");
+        }
+    }
+
+    // ADMIN FUNCTIONS
+    function showAdminLogin() { document.getElementById('adminLoginModal').style.display = 'flex'; }
+    
+    function verifyAdmin() {
+        if(document.getElementById('adminPassword').value === 'Nilla@7') {
+            isAdmin = true;
+            localStorage.setItem('m2_admin', 'true');
+            document.getElementById('adminLoginModal').style.display = 'none';
+            document.getElementById('ownerTabBtn').style.display = 'block';
+            document.getElementById('profile-name').innerText = "M2 Stitches Owner";
+            document.getElementById('ownerTabBtn').click();
+            showToast("Welcome Owner!");
+            loadPendingRequests();
+        } else {
+            showToast("Wrong Password!");
+        }
+    }
+    
+    function logoutAdmin() {
+        localStorage.removeItem('m2_admin');
+        location.reload();
+    }
+
+    function addNewCourse() {
+        let t = document.getElementById('adminCName').value;
+        let c = document.getElementById('adminCat').value || 'Tailoring';
+        let i = document.getElementById('adminCImg').value || "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800";
+        let v = document.getElementById('adminCVideo').value;
+        let p = document.getElementById('adminCPrice').value;
+        let o = document.getElementById('adminCOldPrice').value;
+
+        if(!t || !p || !v) { showToast("Title, Price and Video Link are required!"); return; }
+
+        let newCourse = {
+            id: Date.now(), title: t, category: c, img: i, video: v, price: parseInt(p), old_price: o ? parseInt(o) : null
+        };
+        
+        allCourses.unshift(newCourse);
+        localStorage.setItem('m2_all_courses', JSON.stringify(allCourses));
+
+        showToast("Course Published Successfully!");
+        document.querySelectorAll('.admin-panel input').forEach(inpt => inpt.value = '');
+        filterCourses('All');
+    }
+
+    function loadPendingRequests() {
+        // Since we are auto-approving, show all recent payments here for admin reference
+        let html = '';
+        if(allRequests.length > 0) {
+            allRequests.slice().reverse().forEach(req => {
+                let c = allCourses.find(x => x.id === req.courseId);
+                html += `
+                    <div class="note-card">
+                        <strong>${c ? c.title : 'Course'}</strong><br>
+                        UTR: <span style="color:var(--success);">${req.utr} (Auto-Approved)</span>
+                    </div>`;
+            });
+        } else {
+            html = '<p style="font-size:0.85rem; color:var(--text-muted);">No recent payments.</p>';
+        }
+        document.getElementById('adminUtrList').innerHTML = html;
+    }
+
+    init();
+</script>
+</body>
+</html>
