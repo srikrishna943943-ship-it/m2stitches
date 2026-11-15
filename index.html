@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ta"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#B3181E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>M2 Stitches</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500;700&family=Hind+Madurai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#B3181E;--maroon:#7E0F13;--cream:#FFF8EF;--ink:#241512;--muted:#5A4A45;--line:#ECE0CC;--gold:#C0902A;--thumb:#FBF1DC;--sh:0 6px 18px rgba(126,15,19,.12)}
+*{box-sizing:border-box}
+html{scroll-padding-top:70px}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.6 'Hind Madurai',system-ui,sans-serif;padding-bottom:86px;position:relative;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(#e6d5bb 1.2px,transparent 1.2px) 0 0/20px 20px}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background:url(images/bg.jpg) center/cover no-repeat;opacity:.09}
+h1,h2,h3,.bt{font-family:'Baloo Thambi 2',sans-serif;margin:0}
+button{font:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.util{background:var(--maroon);color:#F6E9DC;font-size:.78rem;text-align:center;padding:6px 10px;padding-top:calc(6px + env(safe-area-inset-top,0px))}
+header{background:#fff;border-bottom:3px solid var(--red);position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.hi{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 16px}
+.hi svg{width:46px;height:46px;flex:none}
+.hi .t{flex:1;line-height:1.1}
+.bt{font-size:1.4rem;font-weight:700;color:var(--red);display:block}
+.bs{font-size:.66rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+.ic{background:none;border:1px solid var(--line);border-radius:999px;font-size:18px;width:40px;height:40px;position:relative}
+.dot{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;border-radius:9px;font-size:11px;min-width:16px;line-height:16px;text-align:center}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+.hero{position:relative;overflow:hidden;border-radius:12px;margin-top:16px;background:linear-gradient(135deg,var(--maroon),var(--red));color:#fff;padding:30px 22px;box-shadow:var(--sh);min-height:190px}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(126,15,19,.88),rgba(126,15,19,.25))}
+.hero .tx{position:relative}
+.hero h1{font-size:2rem;line-height:1.2;margin-bottom:6px}
+.hero p{margin:0 0 16px;opacity:.92}
+.btn{display:inline-block;background:var(--red);color:#fff;border:0;border-radius:999px;padding:10px 22px;font-weight:700;font-size:.92rem;text-align:center}
+.btn.w{background:#fff;color:var(--red)}
+.btn.o{background:#fff;color:var(--red);border:1.5px solid var(--red)}
+.btn.f{width:100%;display:block;margin-bottom:10px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.mode{display:flex;flex-direction:column;justify-content:space-between;min-height:130px;border-radius:14px;padding:16px;color:#fff;box-shadow:var(--sh);font:700 1.15rem/1.35 'Baloo Thambi 2',sans-serif;cursor:pointer;border:0;text-align:left}
+.mode.live{background:linear-gradient(135deg,#7E0F13,#B3181E)}
+.mode.rec{background:linear-gradient(135deg,#27ae60,#2ecc71)}
+.mode span{font-size:1.8rem;line-height:1}
+.mode:active{transform:scale(.98)}
+.st{display:flex;align-items:center;gap:14px;margin:30px 0 16px}
+.st h2{font-size:1.4rem;color:var(--red);white-space:nowrap}
+.st i{flex:1;height:2px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .2s}
+.card:active{transform:scale(.99)}
+.thumb{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,var(--thumb),#f2dcc0);display:grid;place-items:center;font:700 56px 'Baloo Thambi 2',sans-serif;color:var(--red)}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cb{padding:14px 16px 18px}
+.tag{display:inline-block;background:var(--red);color:#fff;font-size:.7rem;font-weight:700;padding:3px 12px;border-radius:999px;margin-bottom:6px}
+.tag.g{background:var(--gold)}
+.cb h3{font-size:1.15rem;line-height:1.4;margin:2px 0 6px}
+.cb p{margin:0 0 10px;color:var(--muted);font-size:.92rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pr b{font-size:1.2rem;color:var(--red)}.pr s{color:#8a7268;margin-left:8px;font-size:.9rem}.pr em{font-style:normal;color:var(--gold);font-weight:700;margin-left:8px;font-size:.85rem}
+.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--sh);margin-bottom:14px}
+.note{background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:.92rem}
+.muted{color:var(--muted)}
+input,textarea,select{width:100%;font:inherit;padding:11px 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);margin:0 0 10px}
+.row{display:flex;gap:10px}.row>*{flex:1}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:#fff;border-top:3px solid var(--red);padding-bottom:env(safe-area-inset-bottom,0px);z-index:25}
+nav button{flex:1;max-width:160px;background:none;border:0;padding:8px 0;color:var(--muted);font-size:.78rem;font-weight:600}
+nav button.on{color:var(--red)}
+nav i{display:block;font-style:normal;font-size:20px}
+#sheet{position:fixed;inset:0;background:rgba(36,21,18,.6);display:none;align-items:flex-end;justify-content:center;z-index:40}
+#sheet.show{display:flex}
+.sh{background:var(--cream);width:min(100%,520px);border-radius:20px 20px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom,0px));max-height:90%;overflow:auto}
+.sh h3{font-size:1.5rem;color:var(--red);margin-bottom:6px}
+.qr{border:1.5px dashed var(--red);border-radius:12px;padding:14px;text-align:center;color:var(--muted);margin:12px 0;background:#fff}
+.qr img{max-width:230px;width:100%}
+#toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;z-index:50;display:none;max-width:90%}
+</style></head><body>
+<div class="util">Follow us on Instagram &amp; YouTube</div>
+<header><div class="hi">
+<svg viewBox="0 0 64 64" aria-label="M2 Stitches"><circle cx="32" cy="32" r="30" fill="#B3181E"/><circle cx="32" cy="32" r="27" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M42 9 L25 33" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="41" cy="11" rx="1.4" ry="3" transform="rotate(35 41 11)" fill="#B3181E"/><path d="M41 10 C55 13 54 27 42 26 C31 25 36 18 27 24" fill="none" stroke="#F3C969" stroke-width="2" stroke-linecap="round"/><text x="32" y="53" text-anchor="middle" font-family="Baloo Thambi 2,serif" font-weight="700" font-size="17" fill="#fff">M2</text></svg>
+<div class="t"><span class="bt">M2 Stitches</span><span class="bs">Tailoring Academy</span></div>
+<button class="ic" id="bell" hidden aria-label="Notifications">&#128276;<span class="dot" id="dot" hidden></span></button>
+<button class="btn" id="lg" onclick="showAuth()">Log in</button>
+</div></header>
+<div class="wrap"><main id="view"></main></div>
+<nav id="nav"></nav>
+<div id="sheet"><div class="sh" id="sh"></div></div>
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+var SB_URL="https://ykwfhtsphqyrscojclhk.supabase.co",SB_KEY="sb_publishable_4w_bwrUQOBY60Zauc2pDiw_ommX-WQD";
+var UPI="rooba25905-1@okicici";
+var IG="https://www.instagram.com/m2__stiches__",YT="https://www.youtube.com/@M2stiches";
+var sb=supabase.createClient(SB_URL,SB_KEY);
+var S={tab:"home",user:null,admin:false,courses:[],pays:[],notes:[],reqs:[],names:{},q:"",pend:null};
+try{S.courses=JSON.parse(localStorage.getItem("m2c")||"[]")}catch(e){}
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},3200)}
+function cById(id){return S.courses.filter(function(c){return c.id==id})[0]}
+function stat(id){var r=S.pays.filter(function(p){return p.course_id==id});if(r.some(function(p){return p.status=="approved"}))return"ok";if(r.some(function(p){return p.status=="pending"}))return"wait";return""}
+function im(u){if(!u)return"";return /^https?:/.test(u)?u:"images/"+u}
+function go(t){S.tab=t;render();window.scrollTo(0,0)}
+function sheet(h){$("sh").innerHTML=h;$("sheet").classList.add("show")}
+function closeS(){$("sheet").classList.remove("show")}
+$("sheet").onclick=function(e){if(e.target==this)closeS()};
+function seenGet(){try{return +localStorage.getItem("m2seen")||0}catch(e){return 0}}
+function seenSet(n){try{localStorage.setItem("m2seen",n)}catch(e){}}
+
+async function load(){
+var r=await Promise.all([sb.auth.getSession(),sb.from("courses").select("*").order("id")]);
+S.user=r[0].data.session?r[0].data.session.user:null;
+if(r[1].data){S.courses=r[1].data;try{localStorage.setItem("m2c",JSON.stringify(S.courses))}catch(e){}}
+render();
+if(!S.user){S.admin=false;S.pays=[];S.notes=[];render();return}
+var u=S.user.id;
+var x=await Promise.all([sb.from("profiles").select("is_admin").eq("id",u).maybeSingle(),sb.from("payment_requests").select("*").eq("user_id",u),sb.from("notifications").select("*").order("created_at",{ascending:false})]);
+S.admin=!!(x[0].data&&x[0].data.is_admin);S.pays=x[1].data||[];S.notes=x[2].data||[];
+if(S.admin){S.reqs=(await sb.from("payment_requests").select("*").eq("status","pending").order("id")).data||[];
+var ids=S.reqs.map(function(q){return q.user_id});S.names={};
+if(ids.length){((await sb.from("profiles").select("id,name").in("id",ids)).data||[]).forEach(function(p){S.names[p.id]=p.name})}}
+render()}
+
+function cardH(c){var st=stat(c.id),off=c.old_price&&c.old_price>c.price?Math.round((1-c.price/c.old_price)*100):0;
+return '<div class="card" onclick="openC('+c.id+')"><div class="thumb">'+esc(c.title.charAt(0))+(c.image_url?'<img loading="lazy" src="'+esc(im(c.image_url))+'" alt="" onerror="this.remove()">':'')+'</div><div class="cb">'+(st=="ok"?'<span class="tag g">Purchased</span>':st=="wait"?'<span class="tag g">Waiting for approval</span>':'<span class="tag">Course</span>')+'<h3>'+esc(c.title)+'</h3><p>'+esc(c.description||"")+'</p><div class="pr"><b>&#8377;'+c.price+'</b>'+(c.old_price&&off?'<s>&#8377;'+c.old_price+'</s><em>'+off+'% OFF</em>':'')+'</div></div></div>'}
+function listH(){var q=S.q.toLowerCase();var l=S.courses.filter(function(c){return c.title.toLowerCase().indexOf(q)>-1});return l.length?'<div class="grid">'+l.map(cardH).join("")+'</div>':'<p class="muted">No courses found.</p>'}
+
+function render(){
+var v=$("view"),h="";
+$("bell").hidden=!S.user;$("lg").hidden=!!S.user;
+var un=Math.max(0,S.notes.length-seenGet());$("dot").hidden=!un;$("dot").textContent=un;
+if(S.tab=="home"){
+h='<div class="hero"><img src="images/banner.jpg" alt="" onerror="this.remove()"><div class="ov"></div><div class="tx"><h1>Learn tailoring at home</h1><p>வீட்டிலிருந்தே தையல் கற்றுக்கொள்ளுங்கள். Video classes, any time.</p><button class="btn w" onclick="go(\'store\')">Browse courses</button></div></div>'+
+'<div class="modes"><a class="mode live" target="_blank" rel="noopener" href="'+YT+'/live">Live<br>Schedule<span>&rarr;</span></a><button class="mode rec" onclick="go(\'store\')">Recorded<br>Courses<span>&rarr;</span></button></div>'+
+'<div class="st"><h2>Popular courses</h2><i></i></div>'+(S.courses.length?'<div class="grid">'+S.courses.slice(0,3).map(cardH).join("")+'</div>':'<p class="muted">Loading courses…</p>')+
+'<div class="st"><h2>Follow us</h2><i></i></div><div class="row"><a class="btn o" target="_blank" rel="noopener" href="'+YT+'">YouTube</a><a class="btn o" target="_blank" rel="noopener" href="'+IG+'">Instagram</a></div>'}
+if(S.tab=="store"){h='<div class="st"><h2>Courses</h2><i></i></div><input id="q" placeholder="Search for courses" value="'+esc(S.q)+'" oninput="S.q=this.value;$(\'list\').innerHTML=listH()"><div id="list">'+listH()+'</div>'}
+if(S.tab=="mine"){
+h='<div class="st"><h2>My courses</h2><i></i></div>';
+if(!S.user)h+='<div class="box"><p>Log in to see your courses.</p><button class="btn" onclick="showAuth()">Log in</button></div>';
+else{var m=S.courses.filter(function(c){return stat(c.id)});
+h+=(m.length?'<div class="grid">'+m.map(cardH).join("")+'</div>':'<div class="box"><p class="muted">You have no courses yet.</p><button class="btn" onclick="go(\'store\')">Go to Store</button></div>')+'<div class="st"><h2>Account</h2><i></i></div><button class="btn o f" onclick="logout()">Log out</button>'}}
+if(S.tab=="admin"&&S.admin){
+h='<div class="st"><h2>Payment requests</h2><i></i></div>'+(S.reqs.map(function(r){var c=cById(r.course_id)||{title:"Course",price:0};return '<div class="box"><b>'+esc(c.title)+'</b> &middot; &#8377;'+c.price+'<br>'+esc(S.names[r.user_id]||"Student")+' &middot; UTR: '+esc(r.utr)+'<div class="row" style="margin-top:10px"><button class="btn" onclick="dec('+r.id+',1)">Approve</button><button class="btn o" onclick="dec('+r.id+',0)">Reject</button></div></div>'}).join("")||'<p class="muted">No pending requests.</p>')+
+'<div class="st"><h2>Send notification</h2><i></i></div><div class="box"><textarea id="nt" rows="2" placeholder="Example: New blouse class is live!"></textarea><button class="btn f" onclick="sendN()">Send to all students</button></div>'+
+'<div class="st"><h2>Add a course</h2><i></i></div><div class="box"><input id="nn" placeholder="Course name"><textarea id="nd" rows="2" placeholder="Short description"></textarea><div class="row"><input id="np" type="number" placeholder="Price"><input id="no" type="number" placeholder="Old price"></div><input id="ni" placeholder="Image file name (example: blouse.jpg) or image link"><button class="btn f" onclick="addC()">Add course</button></div>'+
+'<div class="st"><h2>Add a video</h2><i></i></div><div class="box"><select id="vc">'+S.courses.map(function(c){return '<option value="'+c.id+'">'+esc(c.title)+'</option>'}).join("")+'</select><input id="vt" placeholder="Video title"><input id="vu" placeholder="YouTube unlisted link"><button class="btn f" onclick="addV()">Add video</button></div>'}
+v.innerHTML=h;
+var N=[["home","&#127968;","Home"],["store","&#128717;","Store"],["mine","&#127891;","My courses"]];if(S.admin)N.push(["admin","&#9881;","Owner"+(S.reqs.length?" ("+S.reqs.length+")":"")]);
+$("nav").innerHTML=N.map(function(n){return '<button class="'+(S.tab==n[0]?"on":"")+'" onclick="go(\''+n[0]+'\')"><i>'+n[1]+'</i>'+n[2]+'</button>'}).join("")}
+
+$("bell").onclick=function(){seenSet(S.notes.length);sheet('<h3>Notifications</h3>'+(S.notes.map(function(n){return '<div class="note">'+esc(n.message)+'</div>'}).join("")||'<p class="muted">No notifications yet.</p>')+'<button class="btn o f" onclick="closeS()">Close</button>');render()};
+
+function showAuth(msg){sheet('<h3>Log in</h3><p class="muted">'+esc(msg||"Log in or create an account.")+'</p><input id="nm" placeholder="Name (for new accounts)"><input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password (6 or more characters)"><button class="btn f" onclick="auth(\'in\')">Log in</button><button class="btn o f" onclick="auth(\'up\')">Create account</button>')}
+async function auth(mode){
+var e=$("em").value.trim(),p=$("pw").value,n=$("nm").value.trim(),r;
+if(!e||p.length<6){toast("Enter your email and a password of 6 or more characters");return}
+if(mode=="up")r=await sb.auth.signUp({email:e,password:p,options:{data:{name:n}}});else r=await sb.auth.signInWithPassword({email:e,password:p});
+if(r.error){toast(r.error.message);return}
+if(mode=="up"&&!r.data.session){toast("Account created. Check your email to confirm, then log in.");return}
+closeS();await load();if(S.pend){var id=S.pend;S.pend=null;openC(id)}}
+async function logout(){await sb.auth.signOut();S.user=null;S.admin=false;S.pays=[];S.notes=[];S.tab="home";render()}
+
+async function openC(id){
+var c=cById(id),st=stat(id);
+var head=(c.image_url?'<img src="'+esc(im(c.image_url))+'" alt="" style="width:100%;border-radius:12px;margin-bottom:10px" onerror="this.remove()">':'')+'<h3>'+esc(c.title)+'</h3><p class="muted">'+esc(c.description||"")+'</p>';
+if(st=="ok"){
+var vs=(await sb.from("course_videos").select("*").eq("course_id",id).order("position").order("id")).data||[];
+sheet(head+(vs.map(function(x){return '<a class="btn f" target="_blank" rel="noopener" href="'+esc(x.video_url)+'">&#9654; '+esc(x.title)+'</a>'}).join("")||'<p class="muted">Videos will be added soon.</p>'));return}
+sheet(head+'<p class="pr"><b>&#8377;'+c.price+'</b>'+(c.old_price?'<s>&#8377;'+c.old_price+'</s>':'')+'</p>'+(st=="wait"?'<div class="note">Your payment request is waiting for approval.</div>':'<button class="btn f" onclick="buy('+id+')">Buy for &#8377;'+c.price+'</button>'))}
+function buy(id){if(!S.user){S.pend=id;showAuth("Log in to buy this course.");return}payC(id)}
+function payC(id){var c=cById(id);
+var link='upi://pay?pa='+encodeURIComponent(UPI)+'&pn='+encodeURIComponent("M2 Stitches")+'&am='+c.price+'&cu=INR&tn='+encodeURIComponent("Course "+c.id);
+sheet('<h3>Pay &#8377;'+c.price+'</h3><p class="muted">1. Tap the button. GPay (or your UPI app) opens with the amount already filled in.</p><a class="btn f" href="'+link+'">Pay &#8377;'+c.price+' with GPay / UPI</a><p class="muted">2. After paying, come back here and enter the UPI transaction ID (UTR) from your payment.</p><input id="utr" inputmode="numeric" placeholder="UTR number (12 digits)"><button class="btn f" onclick="sendR('+id+')">I have paid – send request</button><details><summary class="muted">Pay by scanning a QR code instead</summary><div class="qr"><img src="qr.png" alt="Payment QR" onerror="this.replaceWith(document.createTextNode(\'QR code not added yet\'))"><br>UPI ID: '+esc(UPI)+'</div></details>')}
+async function sendR(id){var u=$("utr").value.trim();if(u.length<6){toast("Enter the UTR number from your payment");return}
+var r=await sb.from("payment_requests").insert({course_id:id,utr:u});if(r.error){toast(r.error.message);return}
+closeS();toast("Request sent. You will get access after approval.");await load();go("mine")}
+async function dec(id,ok){var r=await sb.from("payment_requests").update({status:ok?"approved":"rejected"}).eq("id",id);if(r.error){toast(r.error.message);return}toast(ok?"Approved. The course is open for the student.":"Rejected");load()}
+async function sendN(){var t=$("nt").value.trim();if(!t)return;var r=await sb.from("notifications").insert({message:t});if(r.error){toast(r.error.message);return}toast("Sent to all students");load()}
+async function addC(){var n=$("nn").value.trim(),p=+$("np").value;if(!n||!p){toast("Enter a course name and price");return}
+var r=await sb.from("courses").insert({title:n,description:$("nd").value.trim(),price:p,old_price:+$("no").value||null,image_url:$("ni").value.trim()||null});
+if(r.error){toast(/image_url/.test(r.error.message)?"First run the image_url SQL in Supabase":r.error.message);return}toast("Course added");load()}
+async function addV(){var t=$("vt").value.trim(),u=$("vu").value.trim(),c=$("vc").value;if(!c||!t||!u){toast("Choose a course and enter a title and link");return}
+var r=await sb.from("course_videos").insert({course_id:+c,title:t,video_url:u});if(r.error){toast(r.error.message);return}toast("Video added");$("vt").value="";$("vu").value=""}
+render();load();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
+</script></body></html>
