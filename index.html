@@ -241,3 +241,357 @@
         <div class="modal-box">
             <div class="close-btn" onclick="closeModal('qrModal')">×</div>
             <h2 style="color: var(--primary); margin-bottom: 5px;" id="qrTitle">Pay ₹0</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">GPay / PhonePe -ல் பணம் செலுத்திய பின் UTR எண்ணை உள்ளிடவும். <strong>வீடியோ உடனே திறக்கும்!</strong></p>
+            
+            <a href="#" id="upiPayLink" class="qr-box">
+                <img src="qr.png" alt="Payment QR Code">
+                <span>🔗 Tap here to open GPay / PhonePe</span>
+            </a>
+            
+            <input type="text" id="utrInput" class="input-box" placeholder="Enter 12-digit UTR Number" inputmode="numeric">
+            <button class="btn" style="background: var(--success);" onclick="submitUTR()">Submit & Watch Video</button>
+        </div>
+    </div>
+
+    <!-- NOTIFICATIONS MODAL -->
+    <div class="modal" id="noteModal">
+        <div class="modal-box">
+            <div class="close-btn" onclick="closeModal('noteModal')">×</div>
+            <h2 style="color: var(--primary); margin-bottom: 15px;">Notifications</h2>
+            <div id="noteList">
+                <div class="note-card">Welcome to M2 Stitches! Learn professional tailoring easily.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-box" style="border-radius: 12px; margin: auto; max-width:320px;">
+            <div class="close-btn" style="top:5px; right:10px;" onclick="closeModal('adminLoginModal')">×</div>
+            <h2 style="color: var(--primary); margin-bottom: 15px;">Owner Login</h2>
+            <input type="password" id="adminPassword" class="input-box" placeholder="Enter Password">
+            <button class="btn" onclick="verifyAdmin()">Unlock Admin</button>
+        </div>
+    </div>
+
+</div>
+<div id="toast">Message</div>
+
+<script>
+    /* YOUR UPI ID */
+    const MY_UPI_ID = "rooba25905-1@okicici"; 
+
+    // Local DB
+    let isAdmin = localStorage.getItem('m2_admin') === 'true';
+    let editingCourseId = null; // Track edit mode
+
+    let myPurchases = JSON.parse(localStorage.getItem('m2_purchases')) || []; 
+    let currentPayCourseId = null;
+    let allCourses = JSON.parse(localStorage.getItem('m2_all_courses')) || [
+        { id: 1, title: "A-Z Blouse Cutting & Stitching", category: "Blouse", price: 999, old_price: 2000, img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800", video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", tags: ["VIDEOS"] },
+        { id: 2, title: "Chudithar Masterclass", category: "Chudithar", price: 799, old_price: 1500, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=800", video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", tags: ["FREE CONTENT"] }
+    ];
+    let allRequests = JSON.parse(localStorage.getItem('m2_all_requests')) || [];
+
+    async function init() {
+        if(isAdmin) {
+            document.getElementById('ownerTabBtn').style.display = 'block';
+            document.getElementById('profile-name').innerText = "M2 Stitches Owner";
+            loadPendingRequests();
+            renderAdminCourses();
+        }
+        filterCourses('All');
+        loadMyCourses();
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById('toast');
+        t.innerText = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 3000);
+    }
+
+    function switchTab(tabId, element) {
+        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        document.querySelectorAll('.bottom-nav .nav-item').forEach(nav => nav.classList.remove('active'));
+        element.classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function switchProfileTab(tabId, element) {
+        document.querySelectorAll('.p-content').forEach(sec => sec.style.display = 'none');
+        document.getElementById(tabId).style.display = 'block';
+        document.querySelectorAll('.p-tab').forEach(nav => nav.classList.remove('active'));
+        element.classList.add('active');
+    }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function openNotifications() { document.getElementById('noteModal').style.display = 'flex'; }
+
+    // STORE
+    function filterCourses(cat) {
+        document.querySelectorAll('.cat-pill').forEach(p => {
+            if(p.innerText.includes(cat)) p.classList.add('active');
+            else p.classList.remove('active');
+        });
+        let filtered = cat === 'All' ? allCourses : allCourses.filter(c => c.category && c.category.toLowerCase().includes(cat.toLowerCase()));
+        renderStoreUI(filtered);
+    }
+
+    function searchCourses() {
+        let q = document.getElementById('searchInput').value.toLowerCase();
+        let filtered = allCourses.filter(c => c.title.toLowerCase().includes(q));
+        renderStoreUI(filtered);
+        document.getElementById('nav-store').click();
+    }
+
+    function renderStoreUI(filtered) {
+        let html = '';
+        if(filtered.length === 0) {
+            html = '<p style="text-align:center; color:var(--text-muted); margin-top:20px;">No courses found.</p>';
+        } else {
+            filtered.forEach(c => {
+                let offPercent = c.old_price ? Math.round(((c.old_price - c.price) / c.old_price) * 100) : 0;
+                let isPurchased = myPurchases.find(p => p.courseId === c.id && p.status === 'approved');
+                
+                html += `
+                    <div class="course-card">
+                        <img src="${c.img}" class="course-img">
+                        <div class="course-info">
+                            <h3 class="course-title">${c.title}</h3>
+                            <div class="course-price-row">
+                                <span class="price-new">₹ ${c.price}</span>
+                                ${c.old_price ? `<span class="price-old">₹ ${c.old_price}</span> <span class="price-off">${offPercent}% OFF</span>` : ''}
+                            </div>
+                            ${isPurchased ? 
+                                `<button class="btn" style="background:var(--success); padding: 6px; font-size:0.9rem;" onclick="watchVideo('${c.video}')">▶ Watch Video</button>` : 
+                                `<button class="btn" style="padding: 6px; font-size:0.9rem;" onclick="openBuyModal(${c.id}, '${c.title}', ${c.price})">Buy Now</button>`
+                            }
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        document.getElementById('course-list').innerHTML = html;
+    }
+
+    // BUY - AUTO TRIGGER GPAY
+    function openBuyModal(id, title, price) {
+        currentPayCourseId = id;
+        document.getElementById('qrTitle').innerText = `Pay ₹ ${price}`;
+        document.getElementById('utrInput').value = '';
+        
+        let upiString = `upi://pay?pa=${MY_UPI_ID}&pn=M2%20Stitches&am=${price}&cu=INR`;
+        document.getElementById('upiPayLink').href = upiString;
+
+        // Auto trigger Gpay (Mobile)
+        window.location.href = upiString;
+        document.getElementById('qrModal').style.display = 'flex';
+    }
+
+    function submitUTR() {
+        let utr = document.getElementById('utrInput').value.trim();
+        if(utr.length < 6) { showToast("Enter a valid UTR number!"); return; }
+        
+        let req = { id: Date.now(), courseId: currentPayCourseId, utr: utr, status: "approved" }; 
+        allRequests.push(req);
+        localStorage.setItem('m2_all_requests', JSON.stringify(allRequests));
+
+        myPurchases.push(req);
+        localStorage.setItem('m2_purchases', JSON.stringify(myPurchases));
+
+        document.getElementById('qrModal').style.display = 'none';
+        showToast("Payment Successful! Video Unlocked.");
+        
+        let c = allCourses.find(x => x.id === currentPayCourseId);
+        if(c && c.video) {
+            window.open(c.video, '_blank');
+        }
+
+        if(isAdmin) loadPendingRequests();
+        loadMyCourses();
+        filterCourses('All');
+    }
+
+    // MY COURSES
+    function loadMyCourses() {
+        let html = '';
+        myPurchases.forEach(p => {
+            let c = allCourses.find(x => x.id === p.courseId);
+            if(c && p.status === 'approved') {
+                html += `
+                    <div class="note-card" style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <strong style="color:var(--text-dark);">${c.title}</strong><br>
+                            <span style="font-size:0.8rem; color:var(--success)">✅ Paid via UTR: ${p.utr}</span>
+                        </div>
+                        <button class="btn" style="width:auto; padding:6px 12px; font-size:0.85rem;" onclick="watchVideo('${c.video}')">Play</button>
+                    </div>
+                `;
+            }
+        });
+        
+        if(html === '') html = '<p style="color:var(--text-muted); font-size: 0.9rem; text-align: center;">No courses purchased.</p>';
+        document.getElementById('my-purchased-list').innerHTML = html;
+    }
+
+    function watchVideo(link) {
+        if(link) window.open(link, '_blank');
+        else alert("Video link not provided yet.");
+    }
+
+    function restoreCourse() {
+        let utr = document.getElementById('restoreUtr').value.trim();
+        let found = allRequests.find(r => r.utr === utr && r.status === "approved");
+        if(found) {
+            if(!myPurchases.find(p => p.utr === utr)) {
+                myPurchases.push(found);
+                localStorage.setItem('m2_purchases', JSON.stringify(myPurchases));
+            }
+            showToast("Course Restored!");
+            loadMyCourses();
+            document.querySelectorAll('.p-tab')[0].click(); 
+            filterCourses('All');
+        } else {
+            showToast("UTR not found or not approved yet.");
+        }
+    }
+
+    // ADMIN FUNCTIONS - LOGIN
+    function showAdminLogin() { document.getElementById('adminLoginModal').style.display = 'flex'; }
+    
+    function verifyAdmin() {
+        if(document.getElementById('adminPassword').value === 'Nilla@7') {
+            isAdmin = true;
+            localStorage.setItem('m2_admin', 'true');
+            document.getElementById('adminLoginModal').style.display = 'none';
+            document.getElementById('ownerTabBtn').style.display = 'block';
+            document.getElementById('profile-name').innerText = "M2 Stitches Owner";
+            document.getElementById('ownerTabBtn').click();
+            showToast("Welcome Owner!");
+            loadPendingRequests();
+            renderAdminCourses();
+        } else {
+            showToast("Wrong Password!");
+        }
+    }
+    
+    function logoutAdmin() {
+        localStorage.removeItem('m2_admin');
+        location.reload();
+    }
+
+    // ADMIN FUNCTIONS - MANAGE COURSES (EDIT / DELETE / ADD)
+    function renderAdminCourses() {
+        let html = '';
+        allCourses.forEach(c => {
+            html += `
+            <div class="note-card" style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="flex:1;">
+                    <strong style="font-size:0.95rem;">${c.title}</strong><br>
+                    <span style="font-size:0.8rem; color:var(--text-muted);">₹${c.price} | ${c.category}</span>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <button class="btn" style="padding:4px 10px; font-size:0.8rem; width:auto;" onclick="editCourse(${c.id})">Edit</button>
+                    <button class="btn btn-outline btn-danger" style="padding:4px 10px; font-size:0.8rem; width:auto; margin-top:0;" onclick="deleteCourse(${c.id})">Delete</button>
+                </div>
+            </div>`;
+        });
+        document.getElementById('adminManageCourses').innerHTML = html || '<p style="font-size:0.85rem; color:var(--text-muted);">No courses added yet.</p>';
+    }
+
+    function deleteCourse(id) {
+        if(confirm("Are you sure you want to delete this course?")) {
+            allCourses = allCourses.filter(c => c.id !== id);
+            localStorage.setItem('m2_all_courses', JSON.stringify(allCourses));
+            renderAdminCourses();
+            filterCourses('All');
+            showToast("Course Deleted!");
+        }
+    }
+
+    function editCourse(id) {
+        let c = allCourses.find(x => x.id === id);
+        if(!c) return;
+        editingCourseId = id;
+        document.getElementById('adminFormTitle').innerText = "Edit Course";
+        document.getElementById('adminSaveBtn').innerText = "Update Course";
+        document.getElementById('adminCancelBtn').style.display = 'block';
+
+        document.getElementById('adminCName').value = c.title;
+        document.getElementById('adminCat').value = c.category;
+        document.getElementById('adminCImg').value = c.img;
+        document.getElementById('adminCVideo').value = c.video;
+        document.getElementById('adminCPrice').value = c.price;
+        document.getElementById('adminCOldPrice').value = c.old_price || '';
+        
+        // Scroll to form
+        document.getElementById('adminFormTitle').scrollIntoView({behavior: "smooth"});
+    }
+
+    function cancelEdit() {
+        editingCourseId = null;
+        document.getElementById('adminFormTitle').innerText = "Add New Course";
+        document.getElementById('adminSaveBtn').innerText = "Publish Course";
+        document.getElementById('adminCancelBtn').style.display = 'none';
+        document.querySelectorAll('.admin-panel input').forEach(inpt => inpt.value = '');
+    }
+
+    function saveCourse() {
+        let t = document.getElementById('adminCName').value;
+        let c = document.getElementById('adminCat').value || 'Tailoring';
+        let i = document.getElementById('adminCImg').value || "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800";
+        let v = document.getElementById('adminCVideo').value;
+        let p = document.getElementById('adminCPrice').value;
+        let o = document.getElementById('adminCOldPrice').value;
+
+        if(!t || !p || !v) { showToast("Title, Price and Video Link are required!"); return; }
+
+        if(editingCourseId) {
+            // Update existing
+            let idx = allCourses.findIndex(x => x.id === editingCourseId);
+            if(idx !== -1) {
+                allCourses[idx].title = t;
+                allCourses[idx].category = c;
+                allCourses[idx].img = i;
+                allCourses[idx].video = v;
+                allCourses[idx].price = parseInt(p);
+                allCourses[idx].old_price = o ? parseInt(o) : null;
+            }
+            showToast("Course Updated Successfully!");
+        } else {
+            // Add new
+            let newCourse = {
+                id: Date.now(), title: t, category: c, img: i, video: v, price: parseInt(p), old_price: o ? parseInt(o) : null
+            };
+            allCourses.unshift(newCourse);
+            showToast("Course Published Successfully!");
+        }
+
+        localStorage.setItem('m2_all_courses', JSON.stringify(allCourses));
+        cancelEdit(); // Reset form
+        renderAdminCourses(); // Update Admin UI
+        filterCourses('All'); // Update Store UI
+    }
+
+    function loadPendingRequests() {
+        let html = '';
+        if(allRequests.length > 0) {
+            allRequests.slice().reverse().forEach(req => {
+                let c = allCourses.find(x => x.id === req.courseId);
+                html += `
+                    <div class="note-card">
+                        <strong>${c ? c.title : 'Course'}</strong><br>
+                        UTR: <span style="color:var(--success);">${req.utr} (Auto-Approved)</span>
+                    </div>`;
+            });
+        } else {
+            html = '<p style="font-size:0.85rem; color:var(--text-muted);">No recent payments.</p>';
+        }
+        document.getElementById('adminUtrList').innerHTML = html;
+    }
+
+    init();
+</script>
+</body>
+</html>
